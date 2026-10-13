@@ -3,877 +3,645 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Telecom Flow — жұмыс кеңістігі</title>
+<title>Telecom Flow</title>
 <style>
-:root{--navy:#102a43;--navy2:#163b5b;--blue:#087eaa;--cyan:#23a9c7;--ink:#1c3040;--muted:#738391;--line:#e2e9ee;--bg:#f3f6f8;--white:#fff;--green:#18815c;--greenbg:#e8f5ef;--amber:#a16c0b;--amberbg:#fff4dc;--red:#b54f54;--redbg:#fff0ef;--shadow:0 8px 24px #1834490a}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #23a9c744;outline-offset:1px}
-.app{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:236px;padding:22px 14px;background:var(--navy);color:#fff;display:flex;flex-direction:column;z-index:4}.brand{display:flex;align-items:center;gap:11px;padding:0 10px 26px;font-weight:750;font-size:18px}.brand-icon{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:#168eb3;color:white;font-size:16px;font-weight:800}.nav-label{padding:0 12px 8px;color:#8fa9bd;text-transform:uppercase;letter-spacing:.1em;font-size:10px;font-weight:750}.nav{display:grid;gap:4px}.nav button{display:flex;align-items:center;gap:12px;width:100%;padding:10px 12px;border:0;border-radius:8px;background:none;color:#c8d5df;text-align:left;font-weight:600}.nav button:hover{background:#ffffff12;color:#fff}.nav button.active{background:#ffffff18;color:#fff;box-shadow:inset 3px 0 var(--cyan)}.nav-symbol{width:21px;color:#91b5c8;font-size:15px;text-align:center}.sidebar-foot{margin-top:auto;padding:13px 11px;border-top:1px solid #ffffff20;color:#9db0bf;font-size:11px}
-.main{min-height:100vh;margin-left:236px}.topbar{position:sticky;top:0;z-index:3;min-height:68px;padding:12px 26px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:18px}.top-left,.top-right{display:flex;align-items:center;gap:12px}.top-title{color:var(--navy);font-weight:750;font-size:16px}.top-right .field{min-width:190px}.top-right input{max-width:150px}.employee-input{width:200px}.main-content{max-width:1400px;margin:auto;padding:26px}.page{display:none}.page.active{display:block}.heading{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px}.eyebrow{color:var(--blue);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.heading h1{margin:5px 0 3px;color:var(--navy);font-size:26px;line-height:1.2}.heading p{margin:0;color:var(--muted)}.heading-actions,.toolbar{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
-.btn{border:1px solid #d6e0e6;border-radius:8px;padding:9px 13px;background:#fff;color:var(--navy);font-weight:650}.btn:hover{background:#f3f8fa}.btn.primary{border-color:var(--blue);background:var(--blue);color:#fff}.btn.primary:hover{background:#076a90}.btn.ghost-danger{color:var(--red)}.btn.small{padding:6px 9px;font-size:12px}.icon-btn{border:0;background:transparent;color:var(--muted);font-size:19px;padding:3px 8px}
-.grid{display:grid;gap:14px}.stats-grid{grid-template-columns:repeat(6,minmax(130px,1fr));margin-bottom:20px}.card,.panel{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}.stat-card{padding:15px 16px;min-height:112px}.stat-title{color:var(--muted);font-size:12px;font-weight:650}.stat-value{margin:8px 0 2px;color:var(--navy);font-size:25px;font-weight:780;line-height:1.15}.stat-foot{color:var(--muted);font-size:11px}.stat-foot.good{color:var(--green)}
-.panel{padding:18px;margin-bottom:17px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.panel-head h2{margin:0;color:var(--navy);font-size:16px}.panel-head p{margin:2px 0 0;color:var(--muted);font-size:12px}.section-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-.direction-card{padding:16px;border:1px solid var(--line);border-radius:11px;background:white}.direction-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:12px}.direction-name{color:var(--navy);font-weight:780;font-size:17px}.direction-desc{color:var(--muted);font-size:11px}.pill{display:inline-flex;align-items:center;padding:4px 8px;border-radius:99px;background:var(--amberbg);color:var(--amber);font-size:10px;font-weight:750;white-space:nowrap}.pill.good{background:var(--greenbg);color:var(--green)}.direction-numbers{display:grid;grid-template-columns:1fr 1fr;gap:9px}.number-box{padding:9px;background:#f6f8fa;border-radius:8px}.number-box span{display:block;color:var(--muted);font-size:10px}.number-box strong{color:var(--navy);font-size:14px}.progress-label{display:flex;justify-content:space-between;gap:8px;margin-top:12px;font-size:12px;font-weight:700}.progress-track{height:8px;margin-top:6px;background:#e8eef1;border-radius:99px;overflow:hidden}.progress-fill{height:100%;width:0;background:var(--cyan);border-radius:inherit}.progress-fill.good{background:var(--green)}
-.notice{padding:11px 13px;border:1px solid #d9eaf0;border-radius:9px;background:#edf6f9;color:#486573;font-size:12px}.notice.demo{margin-bottom:16px}.muted{color:var(--muted)}.small-text{font-size:12px}
-.field{display:grid;gap:5px}.field label{color:#526879;font-size:11px;font-weight:700}.field input,.field select,.field textarea,.filter-input{width:100%;min-width:0;padding:9px 10px;color:var(--ink);background:white;border:1px solid #d6e0e6;border-radius:8px}.field textarea{min-height:76px;resize:vertical}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.form-grid .wide{grid-column:1/-1}.profile-grid{display:grid;grid-template-columns:minmax(180px,1fr) 200px;gap:14px}.plan-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-.plan-inputs{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}.plan-inputs input{width:100%;padding:8px 9px;border:1px solid #d6e0e6;border-radius:7px}.daily-box{margin-top:10px;padding:9px 10px;border-radius:8px;background:#eff7fa;color:#486573;font-size:12px}
-.filter-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:13px}.filter-row .search{flex:1;min-width:200px}.filter-row select{min-width:150px}
-.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px;background:white}.table{width:100%;min-width:1000px;border-collapse:collapse}.table th,.table td{padding:10px 11px;border-bottom:1px solid #edf0f2;text-align:left;vertical-align:middle}.table th{background:#f7f9fa;color:#617584;font-size:10px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}.table td{font-size:12px}.table tbody tr:last-child td{border-bottom:0}.table select{max-width:170px;padding:6px;border:1px solid #d6e0e6;border-radius:7px;background:#fff;font-size:11px}.table-actions{display:flex;gap:5px}.empty{padding:32px 16px;color:var(--muted);text-align:center}
-.status{display:inline-block;padding:4px 8px;border-radius:99px;background:#eef3f6;color:#536a79;font-size:10px;font-weight:750;white-space:nowrap}.status.new{background:#e8f4fb;color:#16749a}.status.done{background:var(--greenbg);color:var(--green)}.status.cancel{background:var(--redbg);color:var(--red)}
-.tariff-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.tariff-card{display:flex;flex-direction:column;min-height:220px;padding:16px;border:1px solid var(--line);border-radius:11px;background:#fff}.tariff-card h3{margin:0;color:var(--navy);font-size:16px}.tariff-category{margin:4px 0 12px;color:var(--blue);font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.tariff-price{color:var(--navy);font-size:20px;font-weight:780}.tariff-meta{margin-top:7px;color:#506778;font-size:12px}.tariff-card p{margin:10px 0 14px;color:var(--muted);font-size:12px}.tariff-card a{margin-top:auto;color:var(--blue);font-size:12px;font-weight:700;text-decoration:none}.tariff-card a:hover{text-decoration:underline}
-.task-overdue td{background:#fff9f0}.priority{font-weight:750}.priority.high{color:var(--red)}.priority.medium{color:var(--amber)}.priority.low{color:var(--muted)}
-.report-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.bar-row{display:grid;grid-template-columns:80px 1fr 55px;align-items:center;gap:10px;margin:12px 0}.bar-name{color:#506778;font-weight:700;font-size:12px}.bar-track{height:15px;border-radius:99px;background:#edf1f3;overflow:hidden}.bar-fill{height:100%;background:var(--cyan);border-radius:inherit}.bar-value{text-align:right;color:var(--navy);font-weight:750;font-size:12px}.channel-row{display:grid;grid-template-columns:90px 1fr 30px;gap:9px;align-items:center;margin:10px 0}.channel-row .bar-track{height:10px}
-dialog{width:min(600px,calc(100% - 24px));max-height:90vh;padding:0;border:0;border-radius:14px;box-shadow:0 25px 80px #071b2e4d}dialog::backdrop{background:#091e30a6}.modal{padding:20px}.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}.modal-head h2{margin:0;color:var(--navy);font-size:18px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:17px}
-.toast{position:fixed;right:20px;bottom:20px;z-index:10;padding:11px 16px;border-radius:9px;background:var(--navy);color:#fff;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:translateY(0)}
-.menu-toggle{display:none}.no-results{padding:30px;text-align:center;color:var(--muted)}
-@media(max-width:1200px){.stats-grid{grid-template-columns:repeat(3,minmax(130px,1fr))}.section-grid,.plan-grid,.tariff-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:800px){.sidebar{width:210px}.main{margin-left:210px}.main-content{padding:20px}.topbar{padding:11px 18px}.top-right .field{min-width:130px}.employee-input{width:160px}.stats-grid{grid-template-columns:repeat(2,minmax(130px,1fr))}.report-grid{grid-template-columns:1fr}}
-@media(max-width:620px){.sidebar{width:250px;transform:translateX(-100%);transition:transform .2s}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.topbar{padding:10px 13px}.top-left{gap:8px}.menu-toggle{display:inline-flex}.top-title{font-size:14px}.top-right{gap:7px}.top-right .field{min-width:0}.employee-input{width:126px!important}.top-right input{width:125px;max-width:125px;padding:8px 7px!important}.main-content{padding:17px 13px}.heading{align-items:flex-start;flex-direction:column}.heading h1{font-size:23px}.heading-actions{width:100%}.heading-actions .btn{flex:1}.stats-grid{gap:8px}.stat-card{padding:12px;min-height:100px}.stat-value{font-size:21px}.section-grid,.plan-grid,.tariff-grid,.profile-grid,.form-grid{grid-template-columns:1fr}.form-grid .wide{grid-column:auto}.plan-inputs{grid-template-columns:1fr 1fr}.filter-row{align-items:stretch}.filter-row select{flex:1}.filter-row .search{min-width:100%;order:-1}.table{min-width:930px}.panel{padding:14px}.sidebar-foot{font-size:10px}}
+:root{--navy:#102a43;--navy2:#183d5b;--blue:#087eaa;--cyan:#27a9c6;--ink:#1d3040;--muted:#738391;--line:#e2e9ee;--bg:#f3f6f8;--white:#fff;--green:#13835b;--greenbg:#e8f5ef;--amber:#a06b0b;--amberbg:#fff4df;--red:#b24c51;--redbg:#fff0ef;--shadow:0 8px 24px #1834490a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #27a9c644;outline-offset:1px}
+.sidebar{position:fixed;inset:0 auto 0 0;width:230px;padding:21px 13px;background:var(--navy);color:#fff;display:flex;flex-direction:column;z-index:5;transition:transform .2s}.brand{display:flex;align-items:center;gap:11px;padding:0 10px 25px;font-size:18px;font-weight:800}.brand-mark{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:#1593b8;color:white;font-size:12px}.nav-caption{padding:0 11px 8px;color:#8fa9bd;text-transform:uppercase;letter-spacing:.1em;font-size:10px;font-weight:750}.nav{display:grid;gap:4px}.nav button{display:flex;align-items:center;gap:11px;width:100%;padding:10px 12px;border:0;border-radius:8px;background:none;color:#c8d5df;text-align:left;font-weight:650}.nav button:hover{background:#ffffff12;color:#fff}.nav button.active{background:#ffffff18;color:#fff;box-shadow:inset 3px 0 var(--cyan)}.nav-icon{width:20px;color:#9bb9ca;text-align:center;font-size:15px}.sidebar-foot{margin-top:auto;padding:13px 10px;border-top:1px solid #ffffff20;color:#a2b4c1;font-size:11px}
+.main{min-height:100vh;margin-left:230px}.topbar{position:sticky;top:0;z-index:3;min-height:68px;padding:11px 25px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px}.top-left,.top-right{display:flex;align-items:center;gap:12px}.top-title{color:var(--navy);font-weight:800}.top-right .field{min-width:130px}.top-right input{max-width:155px}.employee-input{width:190px}.language{display:flex;gap:3px;padding:3px;background:#f0f4f6;border-radius:8px}.language button{padding:6px 8px;border:0;border-radius:6px;background:transparent;color:var(--muted);font-size:11px;font-weight:800}.language button.active{background:#fff;color:var(--blue);box-shadow:0 1px 5px #102a4312}
+.content{max-width:1400px;margin:auto;padding:25px}.page{display:none}.page.active{display:block}.heading{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px}.eyebrow{color:var(--blue);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.heading h1{margin:5px 0 3px;color:var(--navy);font-size:26px;line-height:1.2}.heading p{margin:0;color:var(--muted)}.heading-actions,.toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.btn{padding:9px 13px;border:1px solid #d6e0e6;border-radius:8px;background:#fff;color:var(--navy);font-weight:700}.btn:hover{background:#f1f7fa}.btn.primary{border-color:var(--blue);background:var(--blue);color:#fff}.btn.primary:hover{background:#076b91}.btn.danger{color:var(--red)}.btn.small{padding:6px 9px;font-size:11px}.icon-btn{padding:3px 8px;border:0;background:none;color:var(--muted);font-size:20px}
+.grid{display:grid;gap:14px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:18px}.stat,.panel,.tile,.tariff-card{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}.stat{min-height:105px;padding:14px 16px}.stat-label{color:var(--muted);font-size:11px;font-weight:700}.stat-value{margin:7px 0 3px;color:var(--navy);font-size:24px;font-weight:800;line-height:1.15}.stat-note{color:var(--muted);font-size:11px}.panel{padding:17px;margin-bottom:16px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}.panel-head h2{margin:0;color:var(--navy);font-size:16px}.panel-head p{margin:2px 0 0;color:var(--muted);font-size:11px}.two-col{grid-template-columns:repeat(2,minmax(0,1fr))}.three-col{grid-template-columns:repeat(3,minmax(0,1fr))}
+.notice{padding:11px 13px;border:1px solid #d9eaf0;border-radius:9px;background:#edf6f9;color:#486573;font-size:11px}.notice.demo{margin-bottom:16px}.muted{color:var(--muted)}.field{display:grid;gap:5px}.field label{color:#526879;font-size:11px;font-weight:750}.field input,.field select,.field textarea,.filter-input{width:100%;min-width:0;padding:9px 10px;border:1px solid #d6e0e6;border-radius:8px;background:#fff;color:var(--ink)}.field textarea{min-height:70px;resize:vertical}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.wide{grid-column:1/-1}.filter-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}.filter-row .search{flex:1;min-width:190px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px;background:#fff}.table{width:100%;min-width:930px;border-collapse:collapse}.table th,.table td{padding:10px;border-bottom:1px solid #edf0f2;text-align:left;vertical-align:middle}.table th{background:#f7f9fa;color:#607482;font-size:10px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}.table td{font-size:11px}.table tbody tr:last-child td{border:0}.table select{max-width:160px;padding:6px;border:1px solid #d6e0e6;border-radius:7px;background:white;font-size:10px}.actions-cell{display:flex;gap:5px}.status{display:inline-block;padding:4px 8px;border-radius:99px;background:#edf3f6;color:#536a79;font-size:10px;font-weight:750;white-space:nowrap}.status.new{background:#e7f3fa;color:#16749a}.status.done{background:var(--greenbg);color:var(--green)}.status.declined{background:var(--redbg);color:var(--red)}.empty{padding:28px 16px;color:var(--muted);text-align:center}
+.quick-grid{grid-template-columns:repeat(3,1fr);margin:14px 0 18px}.quick{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--line);border-radius:11px;background:#fff;text-align:left;color:var(--navy);font-weight:750}.quick:hover{border-color:#a5d4e2;background:#f9fdff}.quick-symbol{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:#e9f5f8;color:var(--blue);font-size:17px}.list-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #edf0f2}.list-item:last-child{border-bottom:0}.client-name{color:var(--navy);font-weight:750}.item-meta{color:var(--muted);font-size:10px}
+.tariffs{grid-template-columns:repeat(3,minmax(0,1fr))}.tariff-card{overflow:hidden;cursor:pointer;transition:transform .15s,border-color .15s}.tariff-card:hover{transform:translateY(-2px);border-color:#abd8e4}.art{height:145px;position:relative;overflow:hidden;background:linear-gradient(135deg,#e7f6fb,#c3e8f2)}.art.purple{background:linear-gradient(135deg,#f0edff,#d6d4ff)}.art.green{background:linear-gradient(135deg,#e9f8f0,#c9eedb)}.art svg{width:100%;height:100%;display:block}.demo-tag{position:absolute;top:10px;left:10px;padding:5px 8px;border:1px solid #ffffffb0;border-radius:99px;background:#ffffffdc;color:#526778;font-size:9px;font-weight:850;letter-spacing:.05em}.tariff-body{padding:14px}.tariff-body h3{margin:0;color:var(--navy);font-size:15px}.tariff-service{margin:3px 0 9px;color:var(--blue);font-size:10px;font-weight:800;text-transform:uppercase}.tariff-price{color:var(--navy);font-size:21px;font-weight:850}.tariff-price small{color:var(--muted);font-size:10px;font-weight:500}.tariff-desc{min-height:35px;margin:7px 0 11px;color:var(--muted);font-size:11px}.tariff-card .btn{margin:0 14px 14px}
+.plan-card{padding:15px;border:1px solid var(--line);border-radius:11px;background:#fff}.plan-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.plan-card h3{margin:0;color:var(--navy);font-size:17px}.badge{padding:4px 8px;border-radius:99px;background:var(--amberbg);color:var(--amber);font-size:9px;font-weight:800;white-space:nowrap}.badge.good{background:var(--greenbg);color:var(--green)}.plan-inputs{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}.plan-inputs input{width:100%;padding:8px;border:1px solid #d6e0e6;border-radius:7px}.mini-metrics{display:grid;grid-template-columns:1fr 1fr;gap:7px}.mini-metric{padding:8px;border-radius:7px;background:#f6f8fa}.mini-metric span{display:block;color:var(--muted);font-size:9px}.mini-metric strong{color:var(--navy);font-size:13px}.progress-label{display:flex;justify-content:space-between;margin-top:11px;font-size:11px;font-weight:750}.progress{height:8px;margin-top:6px;overflow:hidden;border-radius:99px;background:#e8eef1}.progress span{display:block;height:100%;border-radius:inherit;background:var(--cyan)}.progress span.good{background:var(--green)}.pace{margin-top:9px;padding:8px;border-radius:7px;background:#eff7fa;color:#456372;font-size:10px}
+.chart-row{display:grid;grid-template-columns:75px 1fr 58px;align-items:center;gap:9px;margin:11px 0}.chart-label{color:#526879;font-size:10px;font-weight:750}.chart-track{height:13px;overflow:hidden;border-radius:99px;background:#edf1f3}.chart-fill{height:100%;border-radius:inherit;background:var(--cyan)}.chart-value{text-align:right;color:var(--navy);font-size:10px;font-weight:800}.priority.high{color:var(--red);font-weight:800}.priority.medium{color:var(--amber);font-weight:800}.priority.low{color:var(--muted);font-weight:800}.overdue td{background:#fff9ef}
+dialog{width:min(620px,calc(100% - 24px));max-height:90vh;padding:0;border:0;border-radius:14px;box-shadow:0 25px 80px #071b2e55}dialog::backdrop{background:#091e30a6}.modal{padding:19px}.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}.modal-head h2{margin:0;color:var(--navy);font-size:18px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+.toast{position:fixed;right:18px;bottom:18px;z-index:10;padding:11px 15px;border-radius:9px;background:var(--navy);color:#fff;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:translateY(0)}.menu-toggle{display:none}
+@media(max-width:1100px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.three-col,.tariffs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:800px){.sidebar{width:215px}.main{margin-left:215px}.content{padding:19px}.topbar{padding:10px 17px}.employee-input{width:145px}.top-right .field{min-width:110px}}
+@media(max-width:620px){.sidebar{width:250px;transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.menu-toggle{display:inline-block}.topbar{padding:9px 12px;gap:8px}.top-left,.top-right{gap:7px}.employee-input{width:106px!important}.top-right input[type=month]{width:120px}.language{gap:0}.language button{padding:6px}.top-title{font-size:13px}.content{padding:16px 12px}.heading{align-items:flex-start;flex-direction:column}.heading h1{font-size:23px}.heading-actions{width:100%}.heading-actions .btn{flex:1}.stats{gap:8px}.stat{padding:11px;min-height:93px}.stat-value{font-size:20px}.two-col,.three-col,.tariffs,.quick-grid,.form-grid{grid-template-columns:1fr}.wide{grid-column:auto}.filter-row .search{min-width:100%;order:-1}.table{min-width:900px}.panel{padding:13px}.art{height:155px}}
 </style>
 </head>
 <body>
-<div class="app">
-  <aside class="sidebar" id="sidebar">
-    <div class="brand"><span class="brand-icon">TF</span><span>Telecom Flow</span></div>
-    <div class="nav-label">Жұмыс кеңістігі</div>
-    <nav class="nav" aria-label="Негізгі мәзір">
-      <button class="active" data-page="dashboard"><span class="nav-symbol">⌂</span>Басты бет</button>
-      <button data-page="applications"><span class="nav-symbol">▤</span>Өтінімдер</button>
-      <button data-page="plan"><span class="nav-symbol">▥</span>Сатылым жоспары</button>
-      <button data-page="tariffs"><span class="nav-symbol">▦</span>Тарифтер</button>
-      <button data-page="tasks"><span class="nav-symbol">☷</span>Тапсырмалар</button>
-      <button data-page="reports"><span class="nav-symbol">▤</span>Есептер</button>
-    </nav>
-    <div class="sidebar-foot">Оқу жобасының прототипі<br>Деректер осы браузерде сақталады</div>
-  </aside>
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><span class="brand-mark">TF</span><span>Telecom Flow</span></div>
+  <div class="nav-caption" data-i18n="workspace"></div>
+  <nav class="nav" aria-label="Main navigation">
+    <button class="active" data-page="dashboard"><span class="nav-icon">⌂</span><span data-i18n="navDash"></span></button>
+    <button data-page="clients"><span class="nav-icon">▤</span><span data-i18n="navClients"></span></button>
+    <button data-page="tariffs"><span class="nav-icon">▦</span><span data-i18n="navTariffs"></span></button>
+    <button data-page="plan"><span class="nav-icon">▥</span><span data-i18n="navPlan"></span></button>
+    <button data-page="tasks"><span class="nav-icon">☷</span><span data-i18n="navTasks"></span></button>
+  </nav>
+  <div class="sidebar-foot" data-i18n="sidebarFoot"></div>
+</aside>
 
-  <div class="main">
-    <header class="topbar">
-      <div class="top-left">
-        <button class="btn small menu-toggle" id="menuToggle" aria-label="Мәзірді ашу">☰</button>
-        <div class="top-title">Telecom Flow</div>
-      </div>
-      <div class="top-right">
-        <div class="field">
-          <label for="employeeName">Қызметкер</label>
-          <input class="employee-input" id="employeeName" type="text" autocomplete="name" aria-label="Қызметкердің аты-жөні">
-        </div>
-        <div class="field">
-          <label for="monthPicker">Есеп айы</label>
-          <input id="monthPicker" type="month" aria-label="Есеп айы">
-        </div>
-      </div>
-    </header>
-
-    <main class="main-content">
-      <section class="page active" id="page-dashboard">
-        <div class="heading">
-          <div><div class="eyebrow">Жұмыс көрсеткіштері</div><h1>Басты бет</h1><p id="dashSubtitle">Сату мен өтінімдердің ағымдағы көрінісі</p></div>
-          <div class="heading-actions">
-            <button class="btn" id="saveButton">Сақтау</button>
-            <button class="btn" id="restoreButton">Қалпына келтіру</button>
-            <button class="btn ghost-danger" id="clearAllButton">Барлық деректі өшіру</button>
-          </div>
-        </div>
-        <div class="notice demo" id="demoNotice">Көрсеткіштер — демонстрациялық деректер. Өтінімдердегі клиенттер мен телефондар ойдан шығарылған.</div>
-        <div class="grid stats-grid" id="dashboardStats"></div>
-        <div class="panel">
-          <div class="panel-head"><div><h2>Бағыттар бойынша сату</h2><p>Айлық жоспардың орындалуы</p></div><button class="btn small" data-go="plan">Жоспарды ашу</button></div>
-          <div class="grid section-grid" id="dashboardDirections"></div>
-        </div>
-        <div class="notice">Бұл прототип Қазақтелекомның ішкі CRM жүйелерімен интеграцияланбайды. Өтінімдер қолмен енгізілетін жергілікті демонстрациялық деректер.</div>
-      </section>
-
-      <section class="page" id="page-applications">
-        <div class="heading">
-          <div><div class="eyebrow">Клиенттермен жұмыс</div><h1>Өтінімдер</h1><p>Өтінімдерді қосыңыз, іздеңіз және мәртебесін жаңартыңыз.</p></div>
-          <div class="heading-actions"><button class="btn primary" id="addApplicationButton">+ Өтінім қосу</button></div>
-        </div>
-        <div class="panel">
-          <div class="filter-row">
-            <input class="filter-input search" id="appSearch" type="search" placeholder="Клиент аты немесе телефон бойынша іздеу">
-            <select class="filter-input" id="appSourceFilter"><option value="">Барлық арна</option></select>
-            <select class="filter-input" id="appStatusFilter"><option value="">Барлық статус</option></select>
-          </div>
-          <div class="table-wrap"><table class="table"><thead><tr>
-            <th>Өтінім №</th><th>Клиент</th><th>Телефон</th><th>Арна</th><th>Қызмет</th><th>Тариф</th><th>Статус</th><th>Келесі әрекет</th><th>Әрекеттер</th>
-          </tr></thead><tbody id="applicationsBody"></tbody></table></div>
-          <div class="small-text muted" id="applicationsCount" style="margin-top:10px"></div>
-        </div>
-      </section>
-
-      <section class="page" id="page-plan">
-        <div class="heading">
-          <div><div class="eyebrow">Айлық нәтижелер</div><h1>Сатылым жоспары</h1><p id="planSubtitle">Жоспар мен орындалуды бағыт бойынша бақылау.</p></div>
-          <div class="heading-actions"><button class="btn" id="exportButton">CSV экспорттау</button></div>
-        </div>
-        <div class="panel">
-          <div class="panel-head"><div><h2>Есеп параметрлері</h2><p>Әр қызметкер мен айдың жоспары бөлек сақталады.</p></div></div>
-          <div class="profile-grid">
-            <div class="field"><label>Қызметкердің аты-жөні</label><div class="muted" id="planEmployee"></div></div>
-            <div class="field"><label for="workdaysInput">Қалған жұмыс күні</label><input id="workdaysInput" type="number" min="0" step="1" inputmode="numeric" value="0"></div>
-          </div>
-        </div>
-        <div class="grid stats-grid" id="planStats"></div>
-        <div class="grid plan-grid" id="planCards"></div>
-        <div class="notice" style="margin-top:16px">Күндік қажеттілік негізгі жоспарға дейін қалған сатылымды енгізілген жұмыс күндеріне бөлу арқылы есептеледі.</div>
-      </section>
-
-      <section class="page" id="page-tariffs">
-        <div class="heading"><div><div class="eyebrow">Өнімдер каталогы</div><h1>Тарифтер</h1><p>Тариф туралы нақты ресми дерек енгізілмейінше, баға мен шарт көрсетілмейді.</p></div></div>
-        <div class="panel">
-          <div class="filter-row">
-            <input class="filter-input search" id="tariffSearch" type="search" placeholder="Тариф атауы бойынша іздеу">
-            <select class="filter-input" id="tariffCategory"><option value="">Барлық санат</option><option>ШПД</option><option>ТВ</option><option>ФМС</option></select>
-          </div>
-          <div class="grid tariff-grid" id="tariffGrid"></div>
-        </div>
-        <div class="notice">Тариф мәліметтерін төмендегі JavaScript-тегі <code>tariffs</code> массивіне ресми сілтемесімен енгізуге болады.</div>
-      </section>
-
-      <section class="page" id="page-tasks">
-        <div class="heading">
-          <div><div class="eyebrow">Күнделікті жұмыс</div><h1>Тапсырмалар</h1><p>Келесі әрекеттер мен мерзімдерді бір жерде бақылаңыз.</p></div>
-          <div class="heading-actions"><button class="btn primary" id="addTaskButton">+ Тапсырма қосу</button></div>
-        </div>
-        <div class="panel">
-          <div class="filter-row">
-            <input class="filter-input search" id="taskSearch" type="search" placeholder="Тапсырма атауы бойынша іздеу">
-            <select class="filter-input" id="taskStatusFilter"><option value="">Барлық статус</option><option>Орындалуда</option><option>Аяқталды</option></select>
-          </div>
-          <div class="table-wrap"><table class="table"><thead><tr><th>Тапсырма</th><th>Өтінім</th><th>Мерзімі</th><th>Басымдық</th><th>Статус</th><th>Әрекеттер</th></tr></thead><tbody id="tasksBody"></tbody></table></div>
-          <div class="small-text muted" id="tasksCount" style="margin-top:10px"></div>
-        </div>
-      </section>
-
-      <section class="page" id="page-reports">
-        <div class="heading">
-          <div><div class="eyebrow">Нәтижелерді талдау</div><h1>Есептер</h1><p>Өтінім арналары, сатылым және айлық жоспар қорытындысы.</p></div>
-          <div class="heading-actions"><button class="btn primary" id="reportExportButton">CSV жүктеу</button></div>
-        </div>
-        <div class="grid stats-grid" id="reportStats"></div>
-        <div class="grid report-grid">
-          <div class="panel"><div class="panel-head"><div><h2>Бағыттар бойынша жоспар</h2><p>Орындалған сатылым / жоспар</p></div></div><div id="planChart"></div></div>
-          <div class="panel"><div class="panel-head"><div><h2>Өтінім арналары</h2><p>Әр арнадан түскен өтінім саны</p></div></div><div id="channelChart"></div></div>
-        </div>
-        <div class="panel"><div class="panel-head"><div><h2>Сату қорытындысы</h2><p>Қазіргі таңдалған қызметкер мен ай бойынша</p></div></div><div class="table-wrap"><table class="table" style="min-width:500px"><thead><tr><th>Бағыт</th><th>Жоспар</th><th>Орындалғаны</th><th>Орындалуы</th><th>Қалғаны</th><th>105% мақсат</th></tr></thead><tbody id="reportPlanBody"></tbody></table></div></div>
-      </section>
-    </main>
+<div class="main">
+<header class="topbar">
+  <div class="top-left"><button class="btn small menu-toggle" id="menuToggle" aria-label="Menu">☰</button><div class="top-title">Telecom Flow</div></div>
+  <div class="top-right">
+    <div class="field"><label data-i18n="employeeLabel" for="employeeInput"></label><input class="employee-input" id="employeeInput"></div>
+    <div class="field"><label data-i18n="monthLabel" for="monthInput"></label><input id="monthInput" type="month"></div>
+    <div class="language" aria-label="Language">
+      <button data-lang="kk">KZ</button><button data-lang="ru">RU</button><button data-lang="en">EN</button>
+    </div>
   </div>
+</header>
+
+<main class="content">
+  <section class="page active" id="page-dashboard">
+    <div class="heading">
+      <div><div class="eyebrow" data-i18n="dashEyebrow"></div><h1 data-i18n="navDash"></h1><p id="todayLine"></p></div>
+      <div class="heading-actions">
+        <button class="btn" id="saveBtn" data-i18n="save"></button>
+        <button class="btn" id="restoreBtn" data-i18n="restore"></button>
+        <button class="btn danger" id="resetBtn" data-i18n="reset"></button>
+      </div>
+    </div>
+    <div class="notice demo" id="demoNotice" data-i18n="demoNotice"></div>
+    <div class="grid stats" id="dashboardStats"></div>
+    <div class="panel">
+      <div class="panel-head"><div><h2 data-i18n="quickActions"></h2><p data-i18n="quickDescription"></p></div></div>
+      <div class="grid quick-grid">
+        <button class="quick" id="quickClient"><span class="quick-symbol">＋</span><span data-i18n="addClient"></span></button>
+        <button class="quick" data-go="tariffs"><span class="quick-symbol">⌕</span><span data-i18n="seeTariffs"></span></button>
+        <button class="quick" id="quickTask"><span class="quick-symbol">＋</span><span data-i18n="addTask"></span></button>
+      </div>
+    </div>
+    <div class="grid two-col">
+      <div class="panel"><div class="panel-head"><div><h2 data-i18n="callsToday"></h2><p data-i18n="callsCaption"></p></div><button class="btn small" data-go="clients" data-i18n="viewAll"></button></div><div id="callsList"></div></div>
+      <div class="panel"><div class="panel-head"><div><h2 data-i18n="upcomingTasks"></h2><p data-i18n="upcomingCaption"></p></div><button class="btn small" data-go="tasks" data-i18n="viewAll"></button></div><div id="upcomingTasks"></div></div>
+      <div class="panel"><div class="panel-head"><div><h2 data-i18n="recentClients"></h2><p data-i18n="recentCaption"></p></div><button class="btn small" data-go="clients" data-i18n="viewAll"></button></div><div id="recentClients"></div></div>
+      <div class="panel"><div class="panel-head"><div><h2 data-i18n="popularTariffs"></h2><p data-i18n="popularCaption"></p></div><button class="btn small" data-go="tariffs" data-i18n="viewAll"></button></div><div id="popularTariffs"></div></div>
+    </div>
+  </section>
+
+  <section class="page" id="page-clients">
+    <div class="heading"><div><div class="eyebrow" data-i18n="clientEyebrow"></div><h1 data-i18n="navClients"></h1><p data-i18n="clientIntro"></p></div><div class="heading-actions"><button class="btn primary" id="newClientBtn">+ <span data-i18n="addClient"></span></button></div></div>
+    <div class="panel">
+      <div class="filter-row"><input class="filter-input search" id="clientSearch" type="search" data-i18n-placeholder="searchClients"><select class="filter-input" id="clientStatusFilter"></select></div>
+      <div class="table-wrap"><table class="table"><thead><tr>
+        <th data-i18n="colNumber"></th><th data-i18n="colClient"></th><th data-i18n="colPhone"></th><th data-i18n="colSource"></th><th data-i18n="colInterest"></th><th data-i18n="colTariff"></th><th data-i18n="colStatus"></th><th data-i18n="colNext"></th><th data-i18n="colActions"></th>
+      </tr></thead><tbody id="clientsBody"></tbody></table></div>
+      <div class="item-meta" id="clientCount"></div>
+    </div>
+  </section>
+
+  <section class="page" id="page-tariffs">
+    <div class="heading"><div><div class="eyebrow" data-i18n="tariffEyebrow"></div><h1 data-i18n="navTariffs"></h1><p data-i18n="tariffIntro"></p></div></div>
+    <div class="notice demo" data-i18n="tariffDemoNotice"></div>
+    <div class="panel">
+      <div class="filter-row"><input class="filter-input search" id="tariffSearch" type="search" data-i18n-placeholder="searchTariffs"><select class="filter-input" id="tariffCategory"></select></div>
+      <div class="grid tariffs" id="tariffGrid"></div>
+    </div>
+  </section>
+
+  <section class="page" id="page-plan">
+    <div class="heading"><div><div class="eyebrow" data-i18n="planEyebrow"></div><h1 data-i18n="navPlan"></h1><p id="planPeriod"></p></div></div>
+    <div class="grid stats" id="planStats"></div>
+    <div class="panel"><div class="panel-head"><div><h2 data-i18n="planDirections"></h2><p data-i18n="planHelp"></p></div><div class="field" style="min-width:150px"><label for="workdays" data-i18n="workdays"></label><input id="workdays" type="number" min="0" step="1"></div></div><div class="grid three-col" id="planCards"></div></div>
+    <div class="notice" data-i18n="localNote"></div>
+  </section>
+
+  <section class="page" id="page-tasks">
+    <div class="heading"><div><div class="eyebrow" data-i18n="tasksEyebrow"></div><h1 data-i18n="navTasks"></h1><p data-i18n="tasksIntro"></p></div><div class="heading-actions"><button class="btn primary" id="newTaskBtn">+ <span data-i18n="addTask"></span></button><button class="btn" id="csvBtn" data-i18n="exportCsv"></button></div></div>
+    <div class="panel"><div class="panel-head"><div><h2 data-i18n="taskList"></h2><p data-i18n="taskCaption"></p></div></div>
+      <div class="filter-row"><input class="filter-input search" id="taskSearch" type="search" data-i18n-placeholder="searchTasks"><select class="filter-input" id="taskFilter"></select></div>
+      <div class="table-wrap"><table class="table"><thead><tr><th data-i18n="taskTitle"></th><th data-i18n="taskClient"></th><th data-i18n="taskDue"></th><th data-i18n="priority"></th><th data-i18n="taskStatus"></th><th data-i18n="colActions"></th></tr></thead><tbody id="tasksBody"></tbody></table></div>
+      <div class="item-meta" id="taskCount"></div>
+    </div>
+    <div class="grid two-col">
+      <div class="panel"><div class="panel-head"><div><h2 data-i18n="salesSummary"></h2><p id="reportMonth"></p></div></div><div class="grid stats" style="grid-template-columns:repeat(2,minmax(0,1fr));margin:0" id="reportStats"></div></div>
+      <div class="panel"><div class="panel-head"><div><h2 data-i18n="channelsReport"></h2><p data-i18n="channelsCaption"></p></div></div><div id="channelChart"></div></div>
+    </div>
+  </section>
+</main>
 </div>
 
-<dialog id="applicationDialog">
-  <form class="modal" id="applicationForm">
-    <div class="modal-head"><h2 id="applicationDialogTitle">Жаңа өтінім</h2><button class="icon-btn" type="button" data-close="applicationDialog" aria-label="Жабу">×</button></div>
-    <input type="hidden" id="applicationId">
-    <div class="form-grid">
-      <div class="field"><label for="appClient">Клиенттің аты-жөні</label><input id="appClient" required maxlength="100" placeholder="Демо клиент"></div>
-      <div class="field"><label for="appPhone">Телефон нөмірі</label><input id="appPhone" required maxlength="30" placeholder="+7 700 000 00 01"></div>
-      <div class="field"><label for="appSource">Өтінім арнасы</label><select id="appSource" required></select></div>
-      <div class="field"><label for="appService">Қызмет</label><select id="appService"><option>ШПД</option><option>ТВ</option><option>ФМС</option></select></div>
-      <div class="field"><label for="appTariff">Тариф</label><input id="appTariff" list="tariffOptions" placeholder="Ақпарат енгізілмеген"><datalist id="tariffOptions"></datalist></div>
-      <div class="field"><label for="appStatus">Статус</label><select id="appStatus"></select></div>
-      <div class="field wide"><label for="appNextDate">Келесі әрекет күні</label><input id="appNextDate" type="date"></div>
-    </div>
-    <div class="modal-actions"><button class="btn" type="button" data-close="applicationDialog">Болдырмау</button><button class="btn primary" type="submit">Сақтау</button></div>
-  </form>
-</dialog>
+<dialog id="clientDialog"><form class="modal" id="clientForm">
+  <div class="modal-head"><h2 id="clientDialogTitle"></h2><button class="icon-btn" type="button" data-close="clientDialog">×</button></div>
+  <input id="clientId" type="hidden">
+  <div class="form-grid">
+    <div class="field"><label data-i18n="labelName" for="clientName"></label><input id="clientName" required maxlength="100"></div>
+    <div class="field"><label data-i18n="labelPhone" for="clientPhone"></label><input id="clientPhone" required maxlength="32" placeholder="+7 700 000 00 01"></div>
+    <div class="field"><label data-i18n="labelSource" for="clientSource"></label><select id="clientSource"></select></div>
+    <div class="field"><label data-i18n="labelInterest" for="clientInterest"></label><select id="clientInterest"></select></div>
+    <div class="field"><label data-i18n="labelTariff" for="clientTariff"></label><select id="clientTariff"></select></div>
+    <div class="field"><label data-i18n="labelStatus" for="clientStatus"></label><select id="clientStatus"></select></div>
+    <div class="field wide"><label data-i18n="labelNextContact" for="clientNext"></label><input id="clientNext" type="datetime-local"></div>
+  </div>
+  <div class="modal-actions"><button class="btn" type="button" data-close="clientDialog" data-i18n="cancel"></button><button class="btn primary" type="submit" data-i18n="save"></button></div>
+</form></dialog>
 
-<dialog id="taskDialog">
-  <form class="modal" id="taskForm">
-    <div class="modal-head"><h2 id="taskDialogTitle">Жаңа тапсырма</h2><button class="icon-btn" type="button" data-close="taskDialog" aria-label="Жабу">×</button></div>
-    <input type="hidden" id="taskId">
-    <div class="form-grid">
-      <div class="field wide"><label for="taskTitle">Тапсырма атауы</label><input id="taskTitle" required maxlength="140" placeholder="Клиентке қайта қоңырау шалу"></div>
-      <div class="field wide"><label for="taskApplication">Байланысты өтінім</label><select id="taskApplication"><option value="">Өтінім таңдалмаған</option></select></div>
-      <div class="field"><label for="taskDue">Орындалатын күні</label><input id="taskDue" type="date" required></div>
-      <div class="field"><label for="taskPriority">Басымдық</label><select id="taskPriority"><option>Төмен</option><option selected>Орташа</option><option>Жоғары</option></select></div>
-      <div class="field wide"><label for="taskStatus">Статус</label><select id="taskStatus"><option>Орындалуда</option><option>Аяқталды</option></select></div>
-    </div>
-    <div class="modal-actions"><button class="btn" type="button" data-close="taskDialog">Болдырмау</button><button class="btn primary" type="submit">Сақтау</button></div>
-  </form>
-</dialog>
+<dialog id="tariffDialog"><div class="modal"><div class="modal-head"><h2 id="tariffDetailTitle"></h2><button class="icon-btn" type="button" data-close="tariffDialog">×</button></div><div id="tariffDetail"></div><div class="modal-actions"><button class="btn" type="button" data-close="tariffDialog" data-i18n="close"></button><button class="btn primary" type="button" id="proposeTariff" data-i18n="propose"></button></div></div></dialog>
+
+<dialog id="taskDialog"><form class="modal" id="taskForm">
+  <div class="modal-head"><h2 id="taskDialogTitle"></h2><button class="icon-btn" type="button" data-close="taskDialog">×</button></div>
+  <input id="taskId" type="hidden">
+  <div class="form-grid">
+    <div class="field wide"><label data-i18n="taskTitle" for="taskName"></label><input id="taskName" required maxlength="140"></div>
+    <div class="field wide"><label data-i18n="taskClient" for="taskClient"></label><select id="taskClient"></select></div>
+    <div class="field"><label data-i18n="taskDue" for="taskDue"></label><input id="taskDue" type="datetime-local" required></div>
+    <div class="field"><label data-i18n="priority" for="taskPriority"></label><select id="taskPriority"></select></div>
+    <div class="field wide"><label data-i18n="taskStatus" for="taskStatus"></label><select id="taskStatus"></select></div>
+  </div>
+  <div class="modal-actions"><button class="btn" type="button" data-close="taskDialog" data-i18n="cancel"></button><button class="btn primary" type="submit" data-i18n="save"></button></div>
+</form></dialog>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 "use strict";
 
-// Нақты ресми дерек пен сілтемесі жоқ тарифтер ойдан қосылмайды.
-// Жаңа элементтің үлгісі:
-// {name:"",category:"ШПД",price:"",speed:"",package:"",minutes:"",channels:"",conditions:"",description:"",url:""}
-const tariffs = [];
+const I18N={
+kk:{
+workspace:"Жұмыс кеңістігі",navDash:"Дашборд",navClients:"Клиенттер",navTariffs:"Тарифтер",navPlan:"Сатылым жоспары",navTasks:"Тапсырмалар мен есептер",sidebarFoot:"Оқу жобасының прототипі · Деректер осы браузерде сақталады",employeeLabel:"Қызметкер",monthLabel:"Есеп айы",
+dashEyebrow:"Күнделікті жұмыс",welcome:"Қош келдіңіз, {name}",today:"Бүгін",daySummary:"Бүгінгі жұмыс қорытындысы",statNew:"Жаңа өтінімдер",statProcess:"Өңдеу керек",statCalls:"Бүгінгі қоңыраулар",statClients:"Клиенттер",statTasks:"Ашық тапсырмалар",statDone:"Аяқталған сатылым",quickActions:"Жылдам әрекеттер",quickDescription:"Жиі қолданылатын функцияларға өтіңіз",addClient:"Жаңа клиент қосу",seeTariffs:"Тарифтерді көру",addTask:"Тапсырма қосу",callsToday:"Бүгін байланысатын клиенттер",callsCaption:"Келесі байланыс уақыты келген клиенттер",upcomingTasks:"Жақын тапсырмалар",upcomingCaption:"Алдағы және мерзімі өткен жұмыстар",recentClients:"Соңғы қосылған клиенттер",recentCaption:"Жаңадан тіркелген өтінімдер",popularTariffs:"Сұраныстағы тарифтер",popularCaption:"Демонстрациялық каталогтағы танымалдары",viewAll:"Барлығын көру",demoNotice:"Демо деректер: клиенттер, контактілер және тарифтер ойдан шығарылған. Сайт нақты CRM-ге қосылмайды.",
+clientEyebrow:"Өтінімдерді басқару",clientIntro:"Клиенттерді іздеңіз, өтінім мәртебесін және келесі байланыс уақытын басқарыңыз.",searchClients:"Аты-жөні немесе телефон нөмірі бойынша іздеу",filterAll:"Барлық мәртебе",colNumber:"№",colClient:"Клиент",colPhone:"Телефон",colSource:"Арна",colInterest:"Қызмет",colTariff:"Тариф",colStatus:"Мәртебе",colNext:"Келесі байланыс",colActions:"Әрекеттер",edit:"Өңдеу",delete:"Жою",noClients:"Клиент табылмады",shown:"Көрсетілгені",total:"Барлығы",newClient:"Жаңа клиент",editClient:"Клиентті өңдеу",labelName:"Аты-жөні",labelPhone:"Телефон нөмірі",labelSource:"Қайдан келді",labelInterest:"Қызығушылық танытқан қызмет",labelTariff:"Тариф",labelStatus:"Өтінім мәртебесі",labelNextContact:"Келесі байланыс күні мен уақыты",none:"Таңдалмаған",cancel:"Болдырмау",save:"Сақтау",saved:"Деректер сақталды",clientAdded:"Клиент қосылды",clientUpdated:"Клиент жаңартылды",clientDeleted:"Клиент жойылды",confirmDeleteClient:"Осы клиентті жоясыз ба?",statusUpdated:"Мәртебе жаңартылды",
+tariffEyebrow:"Қызметтер каталогы",tariffIntro:"Карточканы басып, тариф сипаттамасын ашыңыз. Бағалар тек демонстрациялық.",tariffDemoNotice:"Демо тарифтер — оқу прототипіне арналған мысалдар. Олар Қазақтелекомның ресми тарифтері, бағалары, акциялары немесе нақты қосылу шарттары емес.",searchTariffs:"Тариф атауы бойынша іздеу",allCategories:"Барлық санат",demoTag:"ДЕМО ТАРИФ",perMonth:"айына",contractPrice:"Контрактпен қосылу",noContractPrice:"Контрактсыз қосылу",included:"Пакетке кіреді",speed:"Жылдамдық",mobileData:"Мобильді интернет",channels:"Телеарналар",minutes:"Минуттар",promo:"Жеңілдіктер мен акциялар",terms:"Қосылу шарттары",termLength:"Келісім мерзімі",details:"Толық ақпарат",propose:"Клиентке ұсыну",close:"Жабу",notSet:"Ақпарат енгізілмеген",noTariffs:"Тариф табылмады",tariffSent:"Тариф таңдалды. Өтінім формасын толтырыңыз.",tariffDemoPriceNote:"Баға мен шарттар — тек демонстрациялық мысал.",
+planEyebrow:"Мақсат пен прогресс",planDirections:"Бағыттар бойынша көрсеткіштер",planHelp:"Сандарды өзгерткенде пайыз бен график автоматты жаңарады.",workdays:"Қалған жұмыс күндері",monthlyPlan:"Айлық жоспар",performed:"Орындалғаны",percent:"Орындалу пайызы",remaining:"Қалған жоспар",target105:"105% мақсат",left105:"105% мақсатқа дейін",progress:"Прогресс",planMet:"Жоспар орындалды",targetMet:"+5% мақсат орындалды",dailyNeed:"Күніне шамамен {n} сату қажет",enterDays:"Күндік есеп үшін жұмыс күнін енгізіңіз",totalPlan:"Жалпы жоспар",totalDone:"Жалпы орындалғаны",totalPercent:"Жалпы орындалуы",totalLeft:"Жоспарға дейін қалды",planMonth:"Айлық нәтижелер · {month}",
+tasksEyebrow:"Жұмысты жоспарлау",tasksIntro:"Еске салғыштарды басқарып, қысқаша жұмыс есебін қараңыз.",taskList:"Тапсырмалар мен еске салғыштар",taskCaption:"Кешіктірілген тапсырмалар белгіленеді.",searchTasks:"Тапсырма атауы бойынша іздеу",allTasks:"Барлық тапсырма",taskTitle:"Тапсырма атауы",taskClient:"Байланысты клиент",taskDue:"Күні мен уақыты",priority:"Басымдық",taskStatus:"Мәртебе",newTask:"Жаңа тапсырма",editTask:"Тапсырманы өңдеу",taskAdded:"Тапсырма қосылды",taskUpdated:"Тапсырма жаңартылды",taskDeleted:"Тапсырма жойылды",confirmDeleteTask:"Осы тапсырманы жоясыз ба?",noTasks:"Тапсырма табылмады",overdue:"Мерзімі өткен",completed:"Орындалды",pending:"Орындалуда",taskStatusUpdated:"Тапсырма мәртебесі жаңартылды",
+salesSummary:"Сатылым нәтижесінің қысқаша есебі",channelsReport:"Өтінім арналары",channelsCaption:"Әр арнадан келген клиенттер саны",reportNew:"Өтінімдер",reportSales:"Аяқталған сатылым",reportDeclined:"Бас тартылды",conversion:"Сатылымға айналу",exportCsv:"CSV жүктеу",csvReady:"CSV есебі жүктелді",noData:"Дерек жоқ",reset:"Демоға қайтару",restore:"Қалпына келтіру",restored:"Сақталған дерек қалпына келтірілді",confirmReset:"Барлық клиент, тапсырма және жоспарды демонстрациялық бастапқы деректермен алмастырасыз ба?",resetDone:"Бастапқы демо деректері қалпына келтірілді",noSaved:"Сақталған дерек табылмады",invalidForm:"Міндетті өрістерді толтырыңыз",selectStatus:"Мәртебе бойынша сүзу",
+src_call:"Қоңырау",src_instagram:"Instagram",src_tiktok:"TikTok",src_bitel:"Bitel",src_qbox:"Qbox",src_other:"Басқа арна",
+svc_shpd:"Үй интернеті / ШПД",svc_tv:"Теледидар / ТВ",svc_fms:"Мобильді байланыс / FMS",svc_combo:"Интернет + ТВ",
+st_new:"Жаңа",st_contacted:"Байланыс орнатылды",st_negotiating:"Келіссөзде",st_completed:"Аяқталды",st_declined:"Бас тартылды",
+priority_low:"Төмен",priority_medium:"Орташа",priority_high:"Жоғары",
+todayCall:"Қоңырау",open:"Ашу",noCalls:"Бүгінге байланыс жоспарланбаған",noUpcoming:"Жақын тапсырма жоқ",noRecent:"Клиенттер әзірге жоқ",noPopular:"Тариф бойынша дерек жоқ",
+tier_router:"Үй интернеті",tier_combo:"Интернет және теледидар",tier_family:"Отбасы пакеті",tier_speed:"Жоғары жылдамдықты интернет",
+desc_router:"Үйге арналған Wi-Fi роутерімен интернет қызметінің демонстрациялық үлгісі.",desc_combo:"Интернет пен телеарналарды біріктіретін демонстрациялық пакет.",desc_family:"Үй ішіндегі бірнеше құрылғы мен мобильді байланыстың демонстрациялық пакеті.",desc_speed:"Жоғары жылдамдыққа арналған демонстрациялық интернет жоспары.",
+inc_router:"Үй интернеті; Wi-Fi роутерін қолдану үлгісі",inc_combo:"Үй интернеті; ТВ қызметінің үлгісі",inc_family:"Мобильді байланыс; бірнеше құрылғыға арналған интернет үлгісі",inc_speed:"Жоғары жылдамдықты үй интернетінің үлгісі",
+promo_demo:"Нақты акция туралы мәлімет жоқ. Бұл — демо мәтін.",terms_demo:"Қосылу талаптары ойдан алынған демо. Ресми шарт ретінде қолданбаңыз.",term_demo:"Демо мерзім: 12 ай (нақты шарт емес).",month:"ай",min:"мин",channelsUnit:"арна",gb:"ГБ",mbps:"Мбит/с",
+saveError:"Сақтау мүмкін болмады: браузер жады қолжетімсіз",callAt:"Байланыс",asked:"Сұраныс",contactFirst:"Алдымен клиент қосыңыз"
+},
+ru:{
+workspace:"Рабочее пространство",navDash:"Дашборд",navClients:"Клиенты",navTariffs:"Тарифы",navPlan:"План продаж",navTasks:"Задачи и отчёты",sidebarFoot:"Учебный прототип · Данные хранятся в этом браузере",employeeLabel:"Сотрудник",monthLabel:"Отчётный месяц",
+dashEyebrow:"Ежедневная работа",welcome:"Добро пожаловать, {name}",today:"Сегодня",daySummary:"Краткий обзор рабочего дня",statNew:"Новые заявки",statProcess:"Нужно обработать",statCalls:"Звонки сегодня",statClients:"Клиенты",statTasks:"Открытые задачи",statDone:"Завершённые продажи",quickActions:"Быстрые действия",quickDescription:"Перейдите к часто используемым функциям",addClient:"Добавить клиента",seeTariffs:"Посмотреть тарифы",addTask:"Добавить задачу",callsToday:"Клиенты для связи сегодня",callsCaption:"Клиенты, для которых наступило время контакта",upcomingTasks:"Ближайшие задачи",upcomingCaption:"Предстоящие и просроченные дела",recentClients:"Последние клиенты",recentCaption:"Недавно добавленные заявки",popularTariffs:"Популярные тарифы",popularCaption:"Популярное в демонстрационном каталоге",viewAll:"Показать все",demoNotice:"Демо-данные: клиенты, контакты и тарифы вымышлены. Сайт не подключён к реальной CRM.",
+clientEyebrow:"Управление заявками",clientIntro:"Ищите клиентов, меняйте статус заявки и планируйте следующий контакт.",searchClients:"Поиск по имени или телефону",filterAll:"Все статусы",colNumber:"№",colClient:"Клиент",colPhone:"Телефон",colSource:"Канал",colInterest:"Услуга",colTariff:"Тариф",colStatus:"Статус",colNext:"Следующий контакт",colActions:"Действия",edit:"Изменить",delete:"Удалить",noClients:"Клиенты не найдены",shown:"Показано",total:"Всего",newClient:"Новый клиент",editClient:"Изменить клиента",labelName:"Имя и фамилия",labelPhone:"Номер телефона",labelSource:"Источник",labelInterest:"Интересующая услуга",labelTariff:"Тариф",labelStatus:"Статус заявки",labelNextContact:"Дата и время следующего контакта",none:"Не выбрано",cancel:"Отмена",save:"Сохранить",saved:"Данные сохранены",clientAdded:"Клиент добавлен",clientUpdated:"Данные клиента обновлены",clientDeleted:"Клиент удалён",confirmDeleteClient:"Удалить этого клиента?",statusUpdated:"Статус обновлён",
+tariffEyebrow:"Каталог услуг",tariffIntro:"Нажмите на карточку, чтобы открыть описание. Цены приведены только для демонстрации.",tariffDemoNotice:"Демо-тарифы — примеры для учебного прототипа. Это не официальные тарифы, цены, акции или реальные условия подключения Казахтелекома.",searchTariffs:"Поиск по названию тарифа",allCategories:"Все категории",demoTag:"ДЕМО-ТАРИФ",perMonth:"в месяц",contractPrice:"Подключение с контрактом",noContractPrice:"Подключение без контракта",included:"В пакет входит",speed:"Скорость",mobileData:"Мобильный интернет",channels:"Телеканалы",minutes:"Минуты",promo:"Скидки и акции",terms:"Условия подключения",termLength:"Срок договора",details:"Подробнее",propose:"Предложить клиенту",close:"Закрыть",notSet:"Информация не указана",noTariffs:"Тарифы не найдены",tariffSent:"Тариф выбран. Заполните заявку.",tariffDemoPriceNote:"Цены и условия — только демонстрационный пример.",
+planEyebrow:"Цели и прогресс",planDirections:"Показатели по направлениям",planHelp:"Процент и график обновляются автоматически при изменении чисел.",workdays:"Оставшиеся рабочие дни",monthlyPlan:"План на месяц",performed:"Выполнено",percent:"Выполнение плана",remaining:"Осталось до плана",target105:"Цель 105%",left105:"Осталось до 105%",progress:"Прогресс",planMet:"План выполнен",targetMet:"Цель +5% выполнена",dailyNeed:"Нужно продавать примерно {n} в день",enterDays:"Укажите рабочие дни для расчёта",totalPlan:"Общий план",totalDone:"Всего выполнено",totalPercent:"Общий процент",totalLeft:"Осталось до плана",planMonth:"Результаты за месяц · {month}",
+tasksEyebrow:"Планирование работы",tasksIntro:"Управляйте напоминаниями и просматривайте краткий рабочий отчёт.",taskList:"Задачи и напоминания",taskCaption:"Просроченные задачи выделены.",searchTasks:"Поиск по названию задачи",allTasks:"Все задачи",taskTitle:"Название задачи",taskClient:"Связанный клиент",taskDue:"Дата и время",priority:"Приоритет",taskStatus:"Статус",newTask:"Новая задача",editTask:"Изменить задачу",taskAdded:"Задача добавлена",taskUpdated:"Задача обновлена",taskDeleted:"Задача удалена",confirmDeleteTask:"Удалить эту задачу?",noTasks:"Задачи не найдены",overdue:"Просрочено",completed:"Выполнено",pending:"В работе",taskStatusUpdated:"Статус задачи обновлён",
+salesSummary:"Краткий отчёт о продажах",channelsReport:"Каналы заявок",channelsCaption:"Количество клиентов из каждого канала",reportNew:"Заявки",reportSales:"Завершённые продажи",reportDeclined:"Отказы",conversion:"Конверсия в продажу",exportCsv:"Скачать CSV",csvReady:"CSV-отчёт загружен",noData:"Нет данных",reset:"Вернуть демо",restore:"Восстановить",restored:"Сохранённые данные восстановлены",confirmReset:"Заменить клиентов, задачи и планы начальными демонстрационными данными?",resetDone:"Начальные демо-данные восстановлены",noSaved:"Сохранённые данные не найдены",invalidForm:"Заполните обязательные поля",selectStatus:"Фильтр по статусу",
+src_call:"Звонок",src_instagram:"Instagram",src_tiktok:"TikTok",src_bitel:"Bitel",src_qbox:"Qbox",src_other:"Другой канал",
+svc_shpd:"Домашний интернет / ШПД",svc_tv:"Телевидение / ТВ",svc_fms:"Мобильная связь / FMS",svc_combo:"Интернет + ТВ",
+st_new:"Новая",st_contacted:"Связались",st_negotiating:"Переговоры",st_completed:"Завершена",st_declined:"Отказ",
+priority_low:"Низкий",priority_medium:"Средний",priority_high:"Высокий",
+todayCall:"Позвонить",open:"Открыть",noCalls:"На сегодня контакты не запланированы",noUpcoming:"Ближайших задач нет",noRecent:"Клиентов пока нет",noPopular:"Нет данных по тарифам",
+tier_router:"Домашний интернет",tier_combo:"Интернет и телевидение",tier_family:"Семейный пакет",tier_speed:"Высокоскоростной интернет",
+desc_router:"Демонстрационный пример интернет-услуги с Wi-Fi-роутером для дома.",desc_combo:"Демонстрационный пакет, объединяющий интернет и телеканалы.",desc_family:"Демонстрационный пакет мобильной связи и интернета для нескольких устройств.",desc_speed:"Демонстрационный интернет-план для высокой скорости.",
+inc_router:"Домашний интернет; пример использования Wi-Fi-роутера",inc_combo:"Домашний интернет; пример ТВ-сервиса",inc_family:"Мобильная связь; пример интернета для нескольких устройств",inc_speed:"Пример высокоскоростного домашнего интернета",
+promo_demo:"Сведений о реальных акциях нет. Это демо-текст.",terms_demo:"Условия подключения вымышлены и не являются официальными.",term_demo:"Демо-срок: 12 месяцев (не реальные условия).",month:"мес.",min:"мин",channelsUnit:"каналов",gb:"ГБ",mbps:"Мбит/с",
+saveError:"Не удалось сохранить: хранилище браузера недоступно",callAt:"Связь",asked:"Запрос",contactFirst:"Сначала добавьте клиента"
+},
+en:{
+workspace:"Workspace",navDash:"Dashboard",navClients:"Clients",navTariffs:"Tariffs",navPlan:"Sales plan",navTasks:"Tasks & reports",sidebarFoot:"Academic prototype · Data is stored in this browser",employeeLabel:"Employee",monthLabel:"Reporting month",
+dashEyebrow:"Daily work",welcome:"Welcome, {name}",today:"Today",daySummary:"Your daily work overview",statNew:"New requests",statProcess:"Need follow-up",statCalls:"Calls today",statClients:"Clients",statTasks:"Open tasks",statDone:"Completed sales",quickActions:"Quick actions",quickDescription:"Jump to common tasks",addClient:"Add a client",seeTariffs:"View tariffs",addTask:"Add a task",callsToday:"Clients to contact today",callsCaption:"Clients whose next contact is due",upcomingTasks:"Upcoming tasks",upcomingCaption:"Upcoming and overdue work",recentClients:"Recently added clients",recentCaption:"Latest requests",popularTariffs:"Popular tariffs",popularCaption:"Popular in the demo catalog",viewAll:"View all",demoNotice:"Demo data: clients, contacts, and tariffs are fictional. This site is not connected to a live CRM.",
+clientEyebrow:"Request management",clientIntro:"Search clients, update request status, and schedule the next contact.",searchClients:"Search by name or phone",filterAll:"All statuses",colNumber:"ID",colClient:"Client",colPhone:"Phone",colSource:"Channel",colInterest:"Service",colTariff:"Tariff",colStatus:"Status",colNext:"Next contact",colActions:"Actions",edit:"Edit",delete:"Delete",noClients:"No clients found",shown:"Shown",total:"Total",newClient:"New client",editClient:"Edit client",labelName:"Full name",labelPhone:"Phone number",labelSource:"Source",labelInterest:"Service of interest",labelTariff:"Tariff",labelStatus:"Request status",labelNextContact:"Next contact date and time",none:"None selected",cancel:"Cancel",save:"Save",saved:"Data saved",clientAdded:"Client added",clientUpdated:"Client updated",clientDeleted:"Client deleted",confirmDeleteClient:"Delete this client?",statusUpdated:"Status updated",
+tariffEyebrow:"Service catalog",tariffIntro:"Select a card to see details. Prices are demonstration examples only.",tariffDemoNotice:"Demo tariffs are examples for an academic prototype. They are not official Kazakhtelecom tariffs, prices, promotions, or actual connection terms.",searchTariffs:"Search tariff name",allCategories:"All categories",demoTag:"DEMO TARIFF",perMonth:"per month",contractPrice:"Connection with contract",noContractPrice:"Connection without contract",included:"Package includes",speed:"Speed",mobileData:"Mobile data",channels:"TV channels",minutes:"Minutes",promo:"Discounts and promotions",terms:"Connection terms",termLength:"Contract term",details:"Full details",propose:"Offer to client",close:"Close",notSet:"Information not provided",noTariffs:"No tariffs found",tariffSent:"Tariff selected. Complete the request form.",tariffDemoPriceNote:"Prices and terms are demonstration examples only.",
+planEyebrow:"Targets & progress",planDirections:"Results by service",planHelp:"Percentages and charts update when values change.",workdays:"Remaining workdays",monthlyPlan:"Monthly plan",performed:"Completed",percent:"Plan completion",remaining:"Remaining to plan",target105:"105% target",left105:"Remaining to 105%",progress:"Progress",planMet:"Plan completed",targetMet:"+5% target reached",dailyNeed:"About {n} sales needed per day",enterDays:"Enter workdays to calculate daily pace",totalPlan:"Total plan",totalDone:"Total completed",totalPercent:"Overall completion",totalLeft:"Remaining to plan",planMonth:"Monthly results · {month}",
+tasksEyebrow:"Work planning",tasksIntro:"Manage reminders and review a short work report.",taskList:"Tasks and reminders",taskCaption:"Overdue tasks are highlighted.",searchTasks:"Search task name",allTasks:"All tasks",taskTitle:"Task name",taskClient:"Linked client",taskDue:"Date and time",priority:"Priority",taskStatus:"Status",newTask:"New task",editTask:"Edit task",taskAdded:"Task added",taskUpdated:"Task updated",taskDeleted:"Task deleted",confirmDeleteTask:"Delete this task?",noTasks:"No tasks found",overdue:"Overdue",completed:"Completed",pending:"In progress",taskStatusUpdated:"Task status updated",
+salesSummary:"Sales summary",channelsReport:"Request channels",channelsCaption:"Client count per channel",reportNew:"Requests",reportSales:"Completed sales",reportDeclined:"Declined",conversion:"Sales conversion",exportCsv:"Download CSV",csvReady:"CSV report downloaded",noData:"No data",reset:"Reset demo",restore:"Restore",restored:"Saved data restored",confirmReset:"Replace clients, tasks, and plans with the initial demo data?",resetDone:"Initial demo data restored",noSaved:"No saved data found",invalidForm:"Complete the required fields",selectStatus:"Filter by status",
+src_call:"Call",src_instagram:"Instagram",src_tiktok:"TikTok",src_bitel:"Bitel",src_qbox:"Qbox",src_other:"Other channel",
+svc_shpd:"Home internet / SHPD",svc_tv:"Television / TV",svc_fms:"Mobile service / FMS",svc_combo:"Internet + TV",
+st_new:"New",st_contacted:"Contacted",st_negotiating:"Negotiating",st_completed:"Completed",st_declined:"Declined",
+priority_low:"Low",priority_medium:"Medium",priority_high:"High",
+todayCall:"Call",open:"Open",noCalls:"No contacts are scheduled for today",noUpcoming:"No upcoming tasks",noRecent:"No clients yet",noPopular:"No tariff data",
+tier_router:"Home internet",tier_combo:"Internet and TV",tier_family:"Family package",tier_speed:"High-speed internet",
+desc_router:"A demonstration example of a home internet service with Wi-Fi router.",desc_combo:"A demo package combining internet and TV channels.",desc_family:"A demo mobile and internet package for multiple devices.",desc_speed:"A demo internet plan for high-speed access.",
+inc_router:"Home internet; example Wi-Fi router use",inc_combo:"Home internet; example TV service",inc_family:"Mobile service; example data for several devices",inc_speed:"Example high-speed home internet",
+promo_demo:"No real promotion information is available. This is demo text.",terms_demo:"Connection terms are fictional and are not official.",term_demo:"Demo term: 12 months (not actual terms).",month:"mo.",min:"min",channelsUnit:"channels",gb:"GB",mbps:"Mbps",
+saveError:"Could not save: browser storage is unavailable",callAt:"Contact",asked:"Interest",contactFirst:"Add a client first"
+}
+};
 
-const APP_KEY = "telecomFlow:local:v1";
-const DIRECTIONS = [
-  {id:"shpd",name:"ШПД",description:"Кең жолақты интернет"},
-  {id:"tv",name:"ТВ",description:"Телевизия қызметі"},
-  {id:"fms",name:"ФМС",description:"Ұялы байланыс"}
+const CATEGORIES=["shpd","tv","fms","combo"];
+const SOURCES=["call","instagram","tiktok","bitel","qbox","other"];
+const STATUSES=["new","contacted","negotiating","completed","declined"];
+const PRIORITIES=["low","medium","high"];
+const SERVICES=["shpd","tv","fms","combo"];
+
+const TARIFFS=[
+{id:"home-wifi",category:"shpd",name:{kk:"Үй Wi-Fi демо",ru:"Домашний Wi-Fi демо",en:"Home Wi-Fi Demo"},price:6990,contract:0,noContract:2500,speed:100,data:0,channels:0,minutes:0,art:"router",popular:30},
+{id:"internet-tv",category:"combo",name:{kk:"Интернет + ТВ демо",ru:"Интернет + ТВ демо",en:"Internet + TV Demo"},price:9990,contract:0,noContract:3500,speed:200,data:0,channels:120,minutes:0,art:"combo",popular:25},
+{id:"family-digital",category:"fms",name:{kk:"Отбасы цифрлық демо",ru:"Семейный цифровой демо",en:"Family Digital Demo"},price:8490,contract:0,noContract:1500,speed:0,data:30,channels:0,minutes:500,art:"family",popular:20},
+{id:"fiber-speed",category:"shpd",name:{kk:"Жоғары жылдамдық демо",ru:"Высокая скорость демо",en:"High Speed Demo"},price:12990,contract:0,noContract:4500,speed:500,data:0,channels:0,minutes:0,art:"speed",popular:15}
 ];
-const APP_STATUSES = ["Жаңа","Байланыс орнатылды","Тариф ұсынылды","Орындалуда","Сатылым аяқталды","Бас тартылды"];
-const SOURCES = ["Instagram","TikTok","Bitel","Qbox","Телефон қоңырауы","Басқа арна"];
-const MONTHS = ["Қаңтар","Ақпан","Наурыз","Сәуір","Мамыр","Маусым","Шілде","Тамыз","Қыркүйек","Қазан","Қараша","Желтоқсан"];
-let state;
-let saveTimer;
-let toastTimer;
 
-const $ = id => document.getElementById(id);
-const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, ch => ({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-})[ch]);
+const $=id=>document.getElementById(id);
+let state,toastTimer,saveTimer,selectedTariff=null;
 
-function currentMonth() {
-  const date = new Date();
-  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}`;
+function tr(key,params={}) {
+  let value=(I18N[state?.lang]||I18N.kk)[key] ?? I18N.kk[key] ?? key;
+  for(const [name,replacement] of Object.entries(params)) value=value.replaceAll(`{${name}}`,String(replacement));
+  return value;
 }
-function dateOffset(days) {
-  const d = new Date();
-  d.setDate(d.getDate()+days);
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+function todayDate(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
+function localDateTime(offsetHours=2){const d=new Date(Date.now()+offsetHours*3600000);const pad=n=>String(n).padStart(2,"0");return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`}
+function randomId(){return crypto?.randomUUID?crypto.randomUUID():`id-${Date.now()}-${Math.random().toString(16).slice(2)}`}
+function pKey(employee,month){return `${encodeURIComponent(String(employee||"").trim().toLocaleLowerCase())}::${month}`}
+function emptyPlan(){return {plan:{shpd:0,tv:0,fms:0},done:{shpd:0,tv:0,fms:0},workdays:0}}
+function demoState(){
+ const employee="Айдана Сәрсен";
+ const month=todayDate().slice(0,7);
+ const idA="demo-c1",idB="demo-c2",idC="demo-c3",idD="demo-c4";
+ return {lang:"kk",employee,month,demo:true,
+  plans:{[pKey(employee,month)]:{plan:{shpd:20,tv:15,fms:10},done:{shpd:14,tv:12,fms:8},workdays:10}},
+  clients:[
+   {id:idA,number:"TF-1001",name:"Демо клиент — А",phone:"+7 700 000 00 01",source:"instagram",service:"shpd",tariff:"home-wifi",status:"new",contact:localDateTime(1),created:Date.now()-100000},
+   {id:idB,number:"TF-1002",name:"Демо клиент — Ә",phone:"+7 700 000 00 02",source:"qbox",service:"combo",tariff:"internet-tv",status:"negotiating",contact:localDateTime(3),created:Date.now()-200000},
+   {id:idC,number:"TF-1003",name:"Демо клиент — Б",phone:"+7 700 000 00 03",source:"call",service:"fms",tariff:"family-digital",status:"completed",contact:"",created:Date.now()-300000},
+   {id:idD,number:"TF-1004",name:"Демо клиент — В",phone:"+7 700 000 00 04",source:"tiktok",service:"shpd",tariff:"fiber-speed",status:"contacted",contact:localDateTime(-1),created:Date.now()-400000}
+  ],
+  tasks:[
+   {id:"demo-t1",title:{kk:"Клиентке қайта қоңырау шалу",ru:"Повторно позвонить клиенту",en:"Call the client back"},client:idA,due:localDateTime(2),priority:"high",done:false},
+   {id:"demo-t2",title:{kk:"Тариф туралы ақпарат жіберу",ru:"Отправить информацию о тарифе",en:"Send tariff information"},client:idB,due:localDateTime(26),priority:"medium",done:false},
+   {id:"demo-t3",title:{kk:"Өтінім нәтижесін тексеру",ru:"Проверить результат заявки",en:"Check the request result"},client:idD,due:localDateTime(-28),priority:"low",done:false}
+  ]};
 }
-function monthLabel(value) {
-  const [year,month] = String(value || currentMonth()).split("-");
-  return `${MONTHS[(Number(month)||1)-1]} ${year}`;
+function loadState(){
+ try{const raw=localStorage.getItem("telecomFlow:v2");if(!raw)return null;
+  const s=JSON.parse(raw);if(!s||typeof s!=="object")return null;
+  s.lang=["kk","ru","en"].includes(s.lang)?s.lang:"kk";
+  s.employee=String(s.employee||"");s.month=/^\d{4}-\d{2}$/.test(s.month||"")?s.month:todayDate().slice(0,7);
+  s.plans=s.plans&&typeof s.plans==="object"?s.plans:{};
+  s.clients=Array.isArray(s.clients)?s.clients:[];s.tasks=Array.isArray(s.tasks)?s.tasks:[];
+  return s;
+ }catch{return null}
 }
-function profileMonthKey(name, month) {
-  return `${encodeURIComponent(String(name || "").trim().toLocaleLowerCase("kk") || "қызметкер")}::${month}`;
+function saveState(notify=false){
+ try{localStorage.setItem("telecomFlow:v2",JSON.stringify(state));if(notify)toast(tr("saved"));return true}
+ catch{if(notify)toast(tr("saveError"));return false}
 }
-function safeCount(value) {
-  const n = Number(value);
-  return Number.isFinite(n) ? Math.max(0,Math.floor(n)) : 0;
+function queueSave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>saveState(false),250)}
+function markChanged(){state.demo=false;$("demoNotice").hidden=true;queueSave()}
+function toast(message){const el=$("toast");el.textContent=message;el.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),2200)}
+function count(n){const v=Number(n);return Number.isFinite(v)?Math.max(0,Math.floor(v)):0}
+function planRecord(){const k=pKey(state.employee,state.month);if(!state.plans[k])state.plans[k]=emptyPlan();const r=state.plans[k];r.plan=r.plan||{};r.done=r.done||{};for(const d of ["shpd","tv","fms"]){r.plan[d]=count(r.plan[d]);r.done[d]=count(r.done[d])}r.workdays=count(r.workdays);return r}
+function serviceName(key){return tr("svc_"+key)}
+function sourceName(key){return tr("src_"+key)}
+function statusName(key){return tr("st_"+key)}
+function tariff(id){return TARIFFS.find(x=>x.id===id)}
+function tariffName(item){return item?.name?.[state.lang]||item?.name?.kk||tr("notSet")}
+function dateText(value,includeTime=true){
+ if(!value)return "—";
+ const d=new Date(value);
+ if(Number.isNaN(d.getTime()))return value;
+ return new Intl.DateTimeFormat(state.lang==="kk"?"kk-KZ":state.lang==="ru"?"ru-RU":"en-US",includeTime?{month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"}:{month:"short",day:"numeric"}).format(d);
 }
-function emptyPlan() {
-  return {plans:{shpd:0,tv:0,fms:0},done:{shpd:0,tv:0,fms:0},workdays:0};
+function pct(value){return `${Number(value.toFixed(1))}%`}
+function metric(d,r=planRecord()){
+ const plan=count(r.plan[d]),done=count(r.done[d]),goal=Math.ceil(plan*1.05);
+ return {plan,done,goal,p:plan?done/plan*100:0,left:Math.max(0,plan-done),left105:Math.max(0,goal-done),met:plan>0&&done>=plan,met105:plan>0&&done>=goal};
 }
-function initialDemo() {
-  const employee = "Демо қызметкер";
-  const month = currentMonth();
-  const id1 = "demo-app-1";
-  const id2 = "demo-app-2";
-  const id3 = "demo-app-3";
-  return {
-    employee,month,demoMode:true,
-    monthData:{
-      [profileMonthKey(employee,month)]:{
-        plans:{shpd:20,tv:15,fms:10},
-        done:{shpd:14,tv:12,fms:8},
-        workdays:10
-      }
-    },
-    applications:[
-      {id:id1,number:"TF-1001",client:"Демо клиент — А",phone:"+7 700 000 00 01",source:"Instagram",service:"ШПД",tariff:"",status:"Жаңа",nextDate:dateOffset(1)},
-      {id:id2,number:"TF-1002",client:"Демо клиент — Ә",phone:"+7 700 000 00 02",source:"Qbox",service:"ТВ",tariff:"",status:"Тариф ұсынылды",nextDate:dateOffset(2)},
-      {id:id3,number:"TF-1003",client:"Демо клиент — Б",phone:"+7 700 000 00 03",source:"Телефон қоңырауы",service:"ФМС",tariff:"",status:"Сатылым аяқталды",nextDate:""}
-    ],
-    tasks:[
-      {id:"demo-task-1",title:"Демо өтінімге қайта қоңырау шалу",applicationId:id1,due:dateOffset(1),priority:"Орташа",status:"Орындалуда"},
-      {id:"demo-task-2",title:"Ұсынылған тариф бойынша кері байланыс алу",applicationId:id2,due:dateOffset(2),priority:"Жоғары",status:"Орындалуда"}
-    ]
-  };
+function totals(){
+ const m=["shpd","tv","fms"].map(id=>metric(id));
+ const plan=m.reduce((a,x)=>a+x.plan,0),done=m.reduce((a,x)=>a+x.done,0),goal=Math.ceil(plan*1.05);
+ return {plan,done,p:plan?done/plan*100:0,left:Math.max(0,plan-done),goal,left105:Math.max(0,goal-done)};
 }
-function loadStored() {
-  try {
-    const raw = localStorage.getItem(APP_KEY);
-    if (!raw) return null;
-    const data = JSON.parse(raw);
-    if (!data || typeof data !== "object") return null;
-    data.employee = String(data.employee || "Қызметкер");
-    data.month = /^\d{4}-\d{2}$/.test(data.month || "") ? data.month : currentMonth();
-    data.monthData = data.monthData && typeof data.monthData === "object" ? data.monthData : {};
-    data.applications = Array.isArray(data.applications) ? data.applications : [];
-    data.tasks = Array.isArray(data.tasks) ? data.tasks : [];
-    data.demoMode = Boolean(data.demoMode);
-    return data;
-  } catch {
-    return null;
-  }
+function appNumber(){
+ const max=state.clients.reduce((n,c)=>Math.max(n,Number(String(c.number||"").replace(/\D/g,""))||1000),1000);
+ return `TF-${max+1}`;
 }
-function saveState(showMessage=false) {
-  try {
-    localStorage.setItem(APP_KEY,JSON.stringify(state));
-    if (showMessage) toast("Деректер сақталды");
-    return true;
-  } catch {
-    if (showMessage) toast("Сақтау мүмкін болмады: браузер жады қолжетімсіз");
-    return false;
-  }
+function statusOptions(value=""){
+ return `<option value="">${tr("filterAll")}</option>`+STATUSES.map(s=>`<option value="${s}" ${value===s?"selected":""}>${statusName(s)}</option>`).join("");
 }
-function scheduleSave() {
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => saveState(false),300);
+function applyTranslations(){
+ document.documentElement.lang=state.lang;
+ document.querySelectorAll("[data-i18n]").forEach(el=>el.textContent=tr(el.dataset.i18n));
+ document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>el.placeholder=tr(el.dataset.i18nPlaceholder));
+ document.querySelectorAll("[data-lang]").forEach(b=>b.classList.toggle("active",b.dataset.lang===state.lang));
+ $("employeeInput").value=state.employee;
+ $("monthInput").value=state.month;
+ $("clientStatusFilter").innerHTML=`<option value="">${tr("selectStatus")}</option>`+STATUSES.map(s=>`<option value="${s}">${statusName(s)}</option>`).join("");
+ $("taskFilter").innerHTML=`<option value="">${tr("allTasks")}</option><option value="open">${tr("pending")}</option><option value="done">${tr("completed")}</option>`;
+ $("tariffCategory").innerHTML=`<option value="">${tr("allCategories")}</option>`+CATEGORIES.map(x=>`<option value="${x}">${serviceName(x)}</option>`).join("");
+ $("clientSource").innerHTML=SOURCES.map(x=>`<option value="${x}">${sourceName(x)}</option>`).join("");
+ $("clientInterest").innerHTML=SERVICES.map(x=>`<option value="${x}">${serviceName(x)}</option>`).join("");
+ $("clientTariff").innerHTML=`<option value="">${tr("none")}</option>`+TARIFFS.map(x=>`<option value="${x.id}">${tariffName(x)}</option>`).join("");
+ $("clientStatus").innerHTML=STATUSES.map(x=>`<option value="${x}">${statusName(x)}</option>`).join("");
+ $("taskPriority").innerHTML=PRIORITIES.map(x=>`<option value="${x}">${tr("priority_"+x)}</option>`).join("");
+ $("taskStatus").innerHTML=`<option value="open">${tr("pending")}</option><option value="done">${tr("completed")}</option>`;
 }
-function touchData() {
-  state.demoMode = false;
-  scheduleSave();
-  $("demoNotice").classList.add("hidden");
+function go(page){
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+ document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===`page-${page}`));
+ $("sidebar").classList.remove("open");
 }
-function activePlan() {
-  const key = profileMonthKey(state.employee,state.month);
-  if (!state.monthData[key]) state.monthData[key] = emptyPlan();
-  const record = state.monthData[key];
-  record.plans = record.plans || {};
-  record.done = record.done || {};
-  for (const direction of DIRECTIONS) {
-    record.plans[direction.id] = safeCount(record.plans[direction.id]);
-    record.done[direction.id] = safeCount(record.done[direction.id]);
-  }
-  record.workdays = safeCount(record.workdays);
-  return record;
-}
-function metrics(direction, record=activePlan()) {
-  const plan = safeCount(record.plans[direction.id]);
-  const done = safeCount(record.done[direction.id]);
-  const target105 = Math.ceil(plan*1.05);
-  const percent = plan === 0 ? 0 : done/plan*100;
-  return {
-    plan,done,target105,percent,
-    left:Math.max(0,plan-done),
-    left105:Math.max(0,target105-done),
-    planMet:plan>0 && done>=plan,
-    targetMet:plan>0 && done>=target105
-  };
-}
-function shownPercent(value) {
-  return `${Number(value.toFixed(1))}%`;
-}
-function monthPlanTotals(record=activePlan()) {
-  const values = DIRECTIONS.map(d=>metrics(d,record));
-  const plan = values.reduce((sum,x)=>sum+x.plan,0);
-  const done = values.reduce((sum,x)=>sum+x.done,0);
-  const target105 = Math.ceil(plan*1.05);
-  return {
-    plan,done,
-    percent:plan===0?0:done/plan*100,
-    left:Math.max(0,plan-done),
-    target105,
-    left105:Math.max(0,target105-done)
-  };
-}
-function statusClass(status) {
-  if (status==="Жаңа") return "new";
-  if (status==="Сатылым аяқталды") return "done";
-  if (status==="Бас тартылды") return "cancel";
-  return "";
-}
-function showToast(message) {
-  const element = $("toast");
-  element.textContent = message;
-  element.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>element.classList.remove("show"),2300);
-}
-function resetDemoNotice() {
-  $("demoNotice").classList.toggle("hidden",!state.demoMode);
-}
-function fillStaticOptions() {
-  $("appSourceFilter").innerHTML = '<option value="">Барлық арна</option>' + SOURCES.map(x=>`<option>${escapeHtml(x)}</option>`).join("");
-  $("appStatusFilter").innerHTML = '<option value="">Барлық статус</option>' + APP_STATUSES.map(x=>`<option>${escapeHtml(x)}</option>`).join("");
-  $("appSource").innerHTML = SOURCES.map(x=>`<option>${escapeHtml(x)}</option>`).join("");
-  $("appStatus").innerHTML = APP_STATUSES.map(x=>`<option>${escapeHtml(x)}</option>`).join("");
-}
+function renderDashboard(){
+ const all=state.clients;
+ const today=todayDate();
+ const newCount=all.filter(c=>c.status==="new").length;
+ const process=all.filter(c=>["new","contacted","negotiating"].includes(c.status)).length;
+ const calls=all.filter(c=>c.contact&&c.contact.slice(0,10)<=today&&c.status!=="completed"&&c.status!=="declined").length;
+ const activeTasks=state.tasks.filter(t=>!t.done).length;
+ const sales=all.filter(c=>c.status==="completed").length;
+ $("todayLine").textContent=`${tr("welcome",{name:state.employee||"—"})} · ${new Intl.DateTimeFormat(state.lang==="kk"?"kk-KZ":state.lang==="ru"?"ru-RU":"en-US",{weekday:"long",year:"numeric",month:"long",day:"numeric"}).format(new Date())}`;
+ const data=[[tr("statNew"),newCount],[tr("statProcess"),process],[tr("statCalls"),calls],[tr("statClients"),all.length],[tr("statTasks"),activeTasks],[tr("statDone"),sales]];
+ $("dashboardStats").innerHTML=data.map(x=>`<article class="stat"><div class="stat-label">${x[0]}</div><div class="stat-value">${x[1]}</div></article>`).join("");
 
-function renderDashboard() {
-  const totals = monthPlanTotals();
-  const newCount = state.applications.filter(x=>x.status==="Жаңа").length;
-  const completed = state.applications.filter(x=>x.status==="Сатылым аяқталды").length;
-  const cards = [
-    ["Жалпы айлық жоспар",`${totals.plan} сату`,"ШПД + ТВ + ФМС"],
-    ["Орындалған сатылым",`${totals.done} сату`,"Жалпы нәтиже"],
-    ["Жалпы орындалуы",shownPercent(totals.percent),`105% мақсатқа ${totals.left105} сату қалды`],
-    ["Негізгі жоспарға дейін",`${totals.left} сату`,"Жоспардың орындалуына дейін"],
-    ["Жаңа өтінімдер",String(newCount),"Жаңа статусындағы"],
-    ["Аяқталған өтінімдер",String(completed),"Сатылым аяқталды статусындағы"]
-  ];
-  $("dashboardStats").innerHTML = cards.map((c,i)=>`
-    <article class="card stat-card"><div class="stat-title">${c[0]}</div><div class="stat-value">${c[1]}</div>
-    <div class="stat-foot ${i===2&&totals.percent>=100?"good":""}">${c[2]}</div></article>`).join("");
-  $("dashboardDirections").innerHTML = DIRECTIONS.map(direction=>{
-    const m=metrics(direction);
-    return `<article class="direction-card">
-      <div class="direction-head"><div><div class="direction-name">${direction.name}</div><div class="direction-desc">${direction.description}</div></div>
-      <span class="pill ${m.planMet?"good":""}">${m.targetMet?"+5% мақсат орындалды":m.planMet?"Жоспар орындалды":"Жоспар орындалмады"}</span></div>
-      <div class="direction-numbers">
-        <div class="number-box"><span>Жоспар</span><strong>${m.plan}</strong></div>
-        <div class="number-box"><span>Орындалғаны</span><strong>${m.done}</strong></div>
-        <div class="number-box"><span>Қалғаны</span><strong>${m.left}</strong></div>
-        <div class="number-box"><span>105% мақсатқа</span><strong>${m.left105} сату</strong></div>
-      </div>
-      <div class="progress-label"><span>Орындалуы</span><span>${shownPercent(m.percent)}</span></div>
-      <div class="progress-track"><div class="progress-fill ${m.planMet?"good":""}" style="width:${Math.min(100,m.percent)}%"></div></div>
-    </article>`;
-  }).join("");
-  $("dashSubtitle").textContent = `${monthLabel(state.month)} · Сату мен өтінімдердің ағымдағы көрінісі`;
-}
-function renderPlanPage() {
-  $("planEmployee").textContent = state.employee || "Қызметкер";
-  $("planSubtitle").textContent = `${monthLabel(state.month)} · Әр қызметкер мен айдың жоспары бөлек сақталады.`;
-  const record=activePlan();
-  $("workdaysInput").value=record.workdays;
-  const totals=monthPlanTotals(record);
-  $("planStats").innerHTML=[
-    ["Жалпы жоспар",`${totals.plan} сату`],
-    ["Жалпы орындалғаны",`${totals.done} сату`],
-    ["Жалпы орындалу пайызы",shownPercent(totals.percent)],
-    ["Негізгі жоспарға дейін",`${totals.left} сату`],
-    ["105% жалпы мақсат",`${totals.target105} сату`],
-    ["105% мақсатқа дейін",`${totals.left105} сату`]
-  ].map(x=>`<article class="card stat-card"><div class="stat-title">${x[0]}</div><div class="stat-value">${x[1]}</div></article>`).join("");
+ const due=all.filter(c=>c.contact&&c.contact.slice(0,10)<=today&&c.status!=="completed"&&c.status!=="declined").sort((a,b)=>String(a.contact).localeCompare(String(b.contact))).slice(0,5);
+ $("callsList").innerHTML=due.length?due.map(c=>`<div class="list-item"><div><div class="client-name">${escapeHtml(c.name)}</div><div class="item-meta">${escapeHtml(c.phone)} · ${dateText(c.contact)}</div></div><button class="btn small" data-edit-client="${c.id}">${tr("open")}</button></div>`).join(""):`<div class="empty">${tr("noCalls")}</div>`;
 
-  $("planCards").innerHTML=DIRECTIONS.map(direction=>{
-    const m=metrics(direction,record);
-    const daily=record.workdays>0?Math.ceil(m.left/record.workdays):null;
-    return `<article class="card direction-card">
-      <div class="direction-head"><div><div class="direction-name">${direction.name}</div><div class="direction-desc">${direction.description}</div></div>
-      <span class="pill ${m.planMet?"good":""}">${m.targetMet?"+5% мақсат орындалды":m.planMet?"Жоспар орындалды":"Жоспар орындалмады"}</span></div>
-      <div class="plan-inputs">
-        <div class="field"><label for="plan-${direction.id}">Айлық жоспар</label><input id="plan-${direction.id}" data-plan="${direction.id}" type="number" min="0" step="1" inputmode="numeric" value="${m.plan}"></div>
-        <div class="field"><label for="done-${direction.id}">Орындалғаны</label><input id="done-${direction.id}" data-done="${direction.id}" type="number" min="0" step="1" inputmode="numeric" value="${m.done}"></div>
-      </div>
-      <div class="direction-numbers">
-        <div class="number-box"><span>Орындалу пайызы</span><strong>${shownPercent(m.percent)}</strong></div>
-        <div class="number-box"><span>Жоспарға дейін</span><strong>${m.left} сату</strong></div>
-        <div class="number-box"><span>105% мақсат</span><strong>${m.target105} сату</strong></div>
-        <div class="number-box"><span>105% мақсатқа дейін</span><strong>${m.left105} сату</strong></div>
-      </div>
-      <div class="progress-label"><span>Прогресс</span><span>${shownPercent(m.percent)}</span></div>
-      <div class="progress-track"><div class="progress-fill ${m.planMet?"good":""}" style="width:${Math.min(100,m.percent)}%"></div></div>
-      <div class="daily-box">${record.workdays>0?`Негізгі жоспарға күніне шамамен <strong>${daily}</strong> сату қажет.`:"Күндік есеп үшін қалған жұмыс күнін енгізіңіз."}</div>
-    </article>`;
-  }).join("");
-}
-function updatePlanMetrics() {
-  const record=activePlan();
-  const values=DIRECTIONS.map(d=>metrics(d,record));
-  const totals=monthPlanTotals(record);
-  const statCards=[
-    ["Жалпы жоспар",`${totals.plan} сату`],
-    ["Жалпы орындалғаны",`${totals.done} сату`],
-    ["Жалпы орындалу пайызы",shownPercent(totals.percent)],
-    ["Негізгі жоспарға дейін",`${totals.left} сату`],
-    ["105% жалпы мақсат",`${totals.target105} сату`],
-    ["105% мақсатқа дейін",`${totals.left105} сату`]
-  ];
-  $("planStats").innerHTML=statCards.map(x=>`<article class="card stat-card"><div class="stat-title">${x[0]}</div><div class="stat-value">${x[1]}</div></article>`).join("");
-  $("planCards").innerHTML=DIRECTIONS.map((direction,i)=>{
-    const m=values[i],daily=record.workdays>0?Math.ceil(m.left/record.workdays):null;
-    return `<article class="card direction-card">
-      <div class="direction-head"><div><div class="direction-name">${direction.name}</div><div class="direction-desc">${direction.description}</div></div><span class="pill ${m.planMet?"good":""}">${m.targetMet?"+5% мақсат орындалды":m.planMet?"Жоспар орындалды":"Жоспар орындалмады"}</span></div>
-      <div class="plan-inputs"><div class="field"><label for="plan-${direction.id}">Айлық жоспар</label><input id="plan-${direction.id}" data-plan="${direction.id}" type="number" min="0" step="1" inputmode="numeric" value="${m.plan}"></div>
-      <div class="field"><label for="done-${direction.id}">Орындалғаны</label><input id="done-${direction.id}" data-done="${direction.id}" type="number" min="0" step="1" inputmode="numeric" value="${m.done}"></div></div>
-      <div class="direction-numbers"><div class="number-box"><span>Орындалу пайызы</span><strong>${shownPercent(m.percent)}</strong></div><div class="number-box"><span>Жоспарға дейін</span><strong>${m.left} сату</strong></div><div class="number-box"><span>105% мақсат</span><strong>${m.target105} сату</strong></div><div class="number-box"><span>105% мақсатқа дейін</span><strong>${m.left105} сату</strong></div></div>
-      <div class="progress-label"><span>Прогресс</span><span>${shownPercent(m.percent)}</span></div><div class="progress-track"><div class="progress-fill ${m.planMet?"good":""}" style="width:${Math.min(100,m.percent)}%"></div></div>
-      <div class="daily-box">${record.workdays>0?`Негізгі жоспарға күніне шамамен <strong>${daily}</strong> сату қажет.`:"Күндік есеп үшін қалған жұмыс күнін енгізіңіз."}</div></article>`;
-  }).join("");
-  renderDashboard();
-  renderReports();
-}
+ const upcoming=state.tasks.filter(t=>!t.done).sort((a,b)=>String(a.due).localeCompare(String(b.due))).slice(0,5);
+ $("upcomingTasks").innerHTML=upcoming.length?upcoming.map(t=>{const c=state.clients.find(x=>x.id===t.client);return `<div class="list-item"><div><div class="client-name">${escapeHtml(titleOf(t))}</div><div class="item-meta">${c?escapeHtml(c.name):tr("none")} · ${dateText(t.due)}</div></div><span class="priority ${t.priority}">${tr("priority_"+t.priority)}</span></div>`}).join(""):`<div class="empty">${tr("noUpcoming")}</div>`;
 
-function appNumber() {
-  const max=state.applications.reduce((n,item)=>{
-    const match=String(item.number||"").match(/(\d+)$/);
-    return match?Math.max(n,Number(match[1])):n;
-  },1000);
-  return `TF-${max+1}`;
-}
-function openApplicationDialog(id="") {
-  const form=$("applicationForm");
-  form.reset();
-  $("applicationId").value=id;
-  $("applicationDialogTitle").textContent=id?"Өтінімді өңдеу":"Жаңа өтінім";
-  $("appSource").value=SOURCES[0];
-  $("appService").value="ШПД";
-  $("appStatus").value="Жаңа";
-  $("appNextDate").value="";
-  if(id){
-    const item=state.applications.find(x=>x.id===id);
-    if(!item)return;
-    $("appClient").value=item.client||"";
-    $("appPhone").value=item.phone||"";
-    $("appSource").value=item.source||SOURCES[0];
-    $("appService").value=item.service||"ШПД";
-    $("appTariff").value=item.tariff||"";
-    $("appStatus").value=item.status||"Жаңа";
-    $("appNextDate").value=item.nextDate||"";
-  }else{
-    $("appTariff").value="";
-  }
-  refreshTariffDatalist();
-  $("applicationDialog").showModal();
-}
-function saveApplication(event) {
-  event.preventDefault();
-  const id=$("applicationId").value;
-  const record={
-    client:$("appClient").value.trim(),
-    phone:$("appPhone").value.trim(),
-    source:$("appSource").value,
-    service:$("appService").value,
-    tariff:$("appTariff").value.trim(),
-    status:$("appStatus").value,
-    nextDate:$("appNextDate").value
-  };
-  if(id){
-    const index=state.applications.findIndex(x=>x.id===id);
-    if(index>=0)state.applications[index]={...state.applications[index],...record};
-  }else{
-    state.applications.unshift({id:makeId(),number:appNumber(),...record});
-  }
-  $("applicationDialog").close();
-  touchData();
-  renderAll();
-  showToast(id?"Өтінім жаңартылды":"Өтінім қосылды");
-}
-function deleteApplication(id) {
-  const item=state.applications.find(x=>x.id===id);
-  if(!item || !confirm(`${item.number} өтінімін жоясыз ба?`))return;
-  state.applications=state.applications.filter(x=>x.id!==id);
-  state.tasks=state.tasks.map(task=>task.applicationId===id?{...task,applicationId:""}:task);
-  touchData();
-  renderAll();
-  showToast("Өтінім жойылды");
-}
-function renderApplications() {
-  const query=$("appSearch").value.trim().toLocaleLowerCase("kk");
-  const source=$("appSourceFilter").value;
-  const status=$("appStatusFilter").value;
-  const filtered=state.applications.filter(item=>
-    (!query || `${item.client} ${item.phone}`.toLocaleLowerCase("kk").includes(query)) &&
-    (!source || item.source===source) &&
-    (!status || item.status===status)
-  );
-  if(!filtered.length){
-    $("applicationsBody").innerHTML='<tr><td colspan="9"><div class="empty">Сүзгіге сай өтінім табылмады.</div></td></tr>';
-  }else{
-    $("applicationsBody").innerHTML=filtered.map(item=>`
-      <tr>
-        <td><strong>${escapeHtml(item.number||"")}</strong></td>
-        <td>${escapeHtml(item.client)}</td><td>${escapeHtml(item.phone)}</td>
-        <td>${escapeHtml(item.source)}</td><td>${escapeHtml(item.service)}</td>
-        <td>${escapeHtml(item.tariff||"Ақпарат енгізілмеген")}</td>
-        <td><select data-app-status="${escapeHtml(item.id)}" aria-label="Өтінім статусы">${APP_STATUSES.map(s=>`<option ${s===item.status?"selected":""}>${escapeHtml(s)}</option>`).join("")}</select></td>
-        <td>${escapeHtml(item.nextDate||"—")}</td>
-        <td><div class="table-actions"><button class="btn small" data-action="edit-app" data-id="${escapeHtml(item.id)}">Өңдеу</button><button class="btn small ghost-danger" data-action="delete-app" data-id="${escapeHtml(item.id)}">Жою</button></div></td>
-      </tr>`).join("");
-  }
-  $("applicationsCount").textContent=`Көрсетілгені: ${filtered.length} · Барлығы: ${state.applications.length}`;
-}
-function renderTaskApplicationOptions() {
-  const select=$("taskApplication");
-  const current=select.value;
-  select.innerHTML='<option value="">Өтінім таңдалмаған</option>'+state.applications.map(item=>
-    `<option value="${escapeHtml(item.id)}">${escapeHtml(item.number)} · ${escapeHtml(item.client)}</option>`
-  ).join("");
-  if(state.applications.some(x=>x.id===current))select.value=current;
-}
-function openTaskDialog(id="") {
-  $("taskForm").reset();
-  $("taskId").value=id;
-  $("taskDialogTitle").textContent=id?"Тапсырманы өңдеу":"Жаңа тапсырма";
-  renderTaskApplicationOptions();
-  $("taskDue").value=dateOffset(1);
-  $("taskPriority").value="Орташа";
-  $("taskStatus").value="Орындалуда";
-  if(id){
-    const task=state.tasks.find(x=>x.id===id);
-    if(!task)return;
-    $("taskTitle").value=task.title;
-    $("taskApplication").value=task.applicationId||"";
-    $("taskDue").value=task.due||"";
-    $("taskPriority").value=task.priority||"Орташа";
-    $("taskStatus").value=task.status||"Орындалуда";
-  }
-  $("taskDialog").showModal();
-}
-function saveTask(event) {
-  event.preventDefault();
-  const id=$("taskId").value;
-  const data={
-    title:$("taskTitle").value.trim(),
-    applicationId:$("taskApplication").value,
-    due:$("taskDue").value,
-    priority:$("taskPriority").value,
-    status:$("taskStatus").value
-  };
-  if(id){
-    const index=state.tasks.findIndex(x=>x.id===id);
-    if(index>=0)state.tasks[index]={...state.tasks[index],...data};
-  }else state.tasks.unshift({id:makeId(),...data});
-  $("taskDialog").close();
-  touchData();
-  renderAll();
-  showToast(id?"Тапсырма жаңартылды":"Тапсырма қосылды");
-}
-function deleteTask(id) {
-  const task=state.tasks.find(x=>x.id===id);
-  if(!task || !confirm(`«${task.title}» тапсырмасын жоясыз ба?`))return;
-  state.tasks=state.tasks.filter(x=>x.id!==id);
-  touchData();renderAll();showToast("Тапсырма жойылды");
-}
-function renderTasks() {
-  const query=$("taskSearch").value.trim().toLocaleLowerCase("kk");
-  const status=$("taskStatusFilter").value;
-  const list=state.tasks.filter(task=>
-    (!query||String(task.title).toLocaleLowerCase("kk").includes(query))&&
-    (!status||task.status===status)
-  ).sort((a,b)=>String(a.due).localeCompare(String(b.due)));
-  if(!list.length){
-    $("tasksBody").innerHTML='<tr><td colspan="6"><div class="empty">Тапсырма табылмады. Жаңа тапсырма қосуға болады.</div></td></tr>';
-  }else{
-    $("tasksBody").innerHTML=list.map(task=>{
-      const app=state.applications.find(x=>x.id===task.applicationId);
-      const overdue=task.status!=="Аяқталды"&&task.due&&task.due<dateOffset(0);
-      const pClass=task.priority==="Жоғары"?"high":task.priority==="Орташа"?"medium":"low";
-      return `<tr class="${overdue?"task-overdue":""}">
-        <td><strong>${escapeHtml(task.title)}</strong>${overdue?'<div class="small-text" style="color:var(--amber)">Мерзімі өткен</div>':""}</td>
-        <td>${app?`${escapeHtml(app.number)} · ${escapeHtml(app.client)}`:"—"}</td>
-        <td>${escapeHtml(task.due||"—")}</td>
-        <td><span class="priority ${pClass}">${escapeHtml(task.priority)}</span></td>
-        <td><button class="btn small ${task.status==="Аяқталды"?"":"primary"}" data-action="toggle-task" data-id="${escapeHtml(task.id)}">${escapeHtml(task.status)}</button></td>
-        <td><div class="table-actions"><button class="btn small" data-action="edit-task" data-id="${escapeHtml(task.id)}">Өңдеу</button><button class="btn small ghost-danger" data-action="delete-task" data-id="${escapeHtml(task.id)}">Жою</button></div></td>
-      </tr>`;
-    }).join("");
-  }
-  $("tasksCount").textContent=`Көрсетілгені: ${list.length} · Барлығы: ${state.tasks.length}`;
-}
-function refreshTariffDatalist() {
-  $("tariffOptions").innerHTML=tariffs.map(item=>`<option value="${escapeHtml(item.name||"")}"></option>`).join("");
-}
-function safeUrl(value) {
-  try {
-    const url=new URL(value);
-    return ["http:","https:"].includes(url.protocol)?url.href:"";
-  } catch { return ""; }
-}
-function renderTariffs() {
-  const query=$("tariffSearch").value.trim().toLocaleLowerCase("kk");
-  const category=$("tariffCategory").value;
-  const list=tariffs.filter(item=>
-    (!category||item.category===category)&&
-    String(item.name||"").toLocaleLowerCase("kk").includes(query)
-  );
-  if(!list.length){
-    $("tariffGrid").innerHTML='<div class="no-results" style="grid-column:1/-1">Ақпарат енгізілмеген. Тариф туралы нақты мәліметтерді ресми дереккөзден алып, кодтағы массивке қосыңыз.</div>';
-  }else{
-    $("tariffGrid").innerHTML=list.map(item=>{
-      const url=safeUrl(item.url||"");
-      const info=[item.speed,item.package,item.minutes,item.channels,item.conditions].filter(Boolean).map(escapeHtml);
-      return `<article class="tariff-card"><h3>${escapeHtml(item.name||"Тариф атауы")}</h3>
-        <div class="tariff-category">${escapeHtml(item.category||"Санат")}</div>
-        <div class="tariff-price">${item.price?escapeHtml(item.price):"Бағасы енгізілмеген"}</div>
-        ${info.map(text=>`<div class="tariff-meta">${text}</div>`).join("")}
-        <p>${escapeHtml(item.description||"Сипаттама енгізілмеген")}</p>
-        ${url?`<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">Ресми ақпарат ↗</a>`:'<span class="tariff-meta">Ресми сілтеме енгізілмеген</span>'}
-      </article>`;
-    }).join("");
-  }
-  refreshTariffDatalist();
-}
-function renderReports() {
-  const totals=monthPlanTotals();
-  const completed=state.applications.filter(x=>x.status==="Сатылым аяқталды").length;
-  const declined=state.applications.filter(x=>x.status==="Бас тартылды").length;
-  const conversion=state.applications.length?completed/state.applications.length*100:0;
-  const cards=[
-    ["Айлық жоспардың орындалуы",shownPercent(totals.percent)],
-    ["Өтінімдердің жалпы саны",String(state.applications.length)],
-    ["Аяқталған сатылым",String(completed)],
-    ["Бас тартылған өтінім",String(declined)],
-    ["Сатылымға айналу пайызы",shownPercent(conversion)],
-    ["105% мақсатқа дейін",`${totals.left105} сату`]
-  ];
-  $("reportStats").innerHTML=cards.map(c=>`<article class="card stat-card"><div class="stat-title">${c[0]}</div><div class="stat-value">${c[1]}</div></article>`).join("");
+ const recent=[...all].sort((a,b)=>(b.created||0)-(a.created||0)).slice(0,5);
+ $("recentClients").innerHTML=recent.length?recent.map(c=>`<div class="list-item"><div><div class="client-name">${escapeHtml(c.name)}</div><div class="item-meta">${escapeHtml(c.phone)} · ${sourceName(c.source)}</div></div><span class="status ${statusClass(c.status)}">${statusName(c.status)}</span></div>`).join(""):`<div class="empty">${tr("noRecent")}</div>`;
 
-  const planMax=Math.max(1,...DIRECTIONS.map(d=>metrics(d).plan),...DIRECTIONS.map(d=>metrics(d).done));
-  $("planChart").innerHTML=DIRECTIONS.map(d=>{
-    const m=metrics(d);
-    const width=Math.min(100,m.done/planMax*100);
-    return `<div class="bar-row"><div class="bar-name">${d.name}</div><div class="bar-track" title="Орындалғаны: ${m.done}, жоспар: ${m.plan}"><div class="bar-fill" style="width:${width}%"></div></div><div class="bar-value">${m.done}/${m.plan}</div></div>`;
-  }).join("");
+ const popular=[...TARIFFS].sort((a,b)=>popularity(b.id)-popularity(a.id)).slice(0,4);
+ $("popularTariffs").innerHTML=popular.length?popular.map(t=>`<div class="list-item"><div><div class="client-name">${escapeHtml(tariffName(t))}</div><div class="item-meta">${serviceName(t.category)}</div></div><button class="btn small" data-open-tariff="${t.id}">${tr("details")}</button></div>`).join(""):`<div class="empty">${tr("noPopular")}</div>`;
+}
+function popularity(id){return state.clients.filter(c=>c.tariff===id).length+(tariff(id)?.popular||0)/100}
+function renderClients(){
+ const query=$("clientSearch").value.trim().toLocaleLowerCase();
+ const filter=$("clientStatusFilter").value;
+ const list=state.clients.filter(c=>(!filter||c.status===filter)&&(!query||`${c.name} ${c.phone}`.toLocaleLowerCase().includes(query)));
+ $("clientsBody").innerHTML=list.length?list.map(c=>`<tr>
+ <td><strong>${escapeHtml(c.number)}</strong></td><td>${escapeHtml(c.name)}</td><td>${escapeHtml(c.phone)}</td><td>${sourceName(c.source)}</td><td>${serviceName(c.service)}</td><td>${escapeHtml(tariffName(tariff(c.tariff)))}</td>
+ <td><select data-client-status="${c.id}" aria-label="${tr("colStatus")}">${STATUSES.map(s=>`<option value="${s}" ${s===c.status?"selected":""}>${statusName(s)}</option>`).join("")}</select></td>
+ <td>${dateText(c.contact)}</td><td><div class="actions-cell"><button class="btn small" data-edit-client="${c.id}">${tr("edit")}</button><button class="btn small danger" data-delete-client="${c.id}">${tr("delete")}</button></div></td></tr>`).join(""):`<tr><td colspan="9"><div class="empty">${tr("noClients")}</div></td></tr>`;
+ $("clientCount").textContent=`${tr("shown")}: ${list.length} · ${tr("total")}: ${state.clients.length}`;
+}
+function artSvg(type){
+ if(type==="router")return `<svg viewBox="0 0 420 180" aria-hidden="true"><circle cx="330" cy="45" r="70" fill="#ffffff66"/><path d="M76 86Q210 -18 344 86M112 105Q210 28 308 105M157 122Q210 83 263 122" fill="none" stroke="#198bb1" stroke-width="8" stroke-linecap="round"/><rect x="155" y="128" width="110" height="32" rx="9" fill="#153d5c"/><circle cx="182" cy="144" r="3" fill="#56d2d6"/><circle cx="197" cy="144" r="3" fill="#56d2d6"/><circle cx="212" cy="144" r="3" fill="#56d2d6"/></svg>`;
+ if(type==="combo")return `<svg viewBox="0 0 420 180" aria-hidden="true"><circle cx="85" cy="35" r="53" fill="#ffffff66"/><rect x="80" y="30" width="245" height="122" rx="13" fill="#183a5c"/><rect x="94" y="43" width="217" height="94" rx="7" fill="#78d1df"/><path d="M95 117l65-53 39 30 35-22 77 65H95z" fill="#fff" opacity=".8"/><circle cx="202" cy="84" r="17" fill="#fff" opacity=".85"/><rect x="176" y="152" width="53" height="8" rx="4" fill="#153d5c"/></svg>`;
+ if(type==="family")return `<svg viewBox="0 0 420 180" aria-hidden="true"><circle cx="335" cy="35" r="60" fill="#ffffff77"/><circle cx="170" cy="69" r="26" fill="#fff"/><circle cx="240" cy="69" r="26" fill="#fff"/><circle cx="205" cy="48" r="29" fill="#f5ffff"/><path d="M116 151q4-55 54-55t53 55m-20 0q4-67 55-67t55 67m-126 0q4-84 73-84t72 84" fill="#187b9b" opacity=".86"/><path d="M90 153h240" stroke="#173b59" stroke-width="8" stroke-linecap="round"/></svg>`;
+ return `<svg viewBox="0 0 420 180" aria-hidden="true"><circle cx="330" cy="35" r="68" fill="#ffffff77"/><path d="M55 133h315" stroke="#234661" stroke-width="3" opacity=".2"/><path d="M80 125l50-24 46 10 45-38 42 10 72-55" fill="none" stroke="#168fb4" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="333" cy="28" r="12" fill="#fff" stroke="#168fb4" stroke-width="7"/><rect x="75" y="143" width="268" height="9" rx="4" fill="#ffffff99"/></svg>`;
+}
+function renderTariffs(){
+ const q=$("tariffSearch").value.trim().toLocaleLowerCase();
+ const cat=$("tariffCategory").value;
+ const list=TARIFFS.filter(x=>(!cat||x.category===cat)&&tariffName(x).toLocaleLowerCase().includes(q));
+ $("tariffGrid").innerHTML=list.length?list.map(t=>`<article class="tariff-card" data-card-tariff="${t.id}" tabindex="0" role="button">
+ <div class="art ${t.art==="combo"?"purple":t.art==="family"?"green":""}">${artSvg(t.art)}<span class="demo-tag">${tr("demoTag")}</span></div>
+ <div class="tariff-body"><h3>${escapeHtml(tariffName(t))}</h3><div class="tariff-service">${serviceName(t.category)}</div><div class="tariff-price">${money(t.price)} <small>${tr("perMonth")}</small></div><div class="tariff-desc">${tr("desc_"+t.art)}</div></div>
+ <button class="btn" data-open-tariff="${t.id}">${tr("details")}</button></article>`).join(""):`<div class="empty" style="grid-column:1/-1">${tr("noTariffs")}</div>`;
+}
+function money(value){return new Intl.NumberFormat(state.lang==="en"?"en-US":state.lang==="ru"?"ru-RU":"kk-KZ").format(value)+" ₸"}
+function openTariff(id){
+ const t=tariff(id);if(!t)return;
+ selectedTariff=id;
+ $("tariffDetailTitle").textContent=tariffName(t);
+ const speed=t.speed?`${t.speed} ${tr("mbps")}`:tr("notSet");
+ const data=t.data?`${t.data} ${tr("gb")}`:tr("notSet");
+ const channels=t.channels?`${t.channels} ${tr("channelsUnit")}`:tr("notSet");
+ const minutes=t.minutes?`${t.minutes} ${tr("min")}`:tr("notSet");
+ $("tariffDetail").innerHTML=`<div class="art ${t.art==="combo"?"purple":t.art==="family"?"green":""}" style="border-radius:10px;margin-bottom:13px">${artSvg(t.art)}<span class="demo-tag">${tr("demoTag")}</span></div>
+ <div class="notice demo">${tr("tariffDemoPriceNote")}</div>
+ <div class="grid two-col" style="margin-top:12px">
+ <div class="mini-metric"><span>${tr("labelInterest")}</span><strong>${serviceName(t.category)}</strong></div>
+ <div class="mini-metric"><span>${tr("monthlyPlan")}</span><strong>${money(t.price)} / ${tr("month")}</strong></div>
+ <div class="mini-metric"><span>${tr("contractPrice")}</span><strong>${money(t.contract)}</strong></div>
+ <div class="mini-metric"><span>${tr("noContractPrice")}</span><strong>${money(t.noContract)}</strong></div>
+ <div class="mini-metric"><span>${tr("speed")}</span><strong>${speed}</strong></div>
+ <div class="mini-metric"><span>${tr("mobileData")}</span><strong>${data}</strong></div>
+ <div class="mini-metric"><span>${tr("channels")}</span><strong>${channels}</strong></div>
+ <div class="mini-metric"><span>${tr("minutes")}</span><strong>${minutes}</strong></div>
+ </div><div class="mini-metric" style="margin-top:10px"><span>${tr("included")}</span><strong>${tr("inc_"+t.art)}</strong></div>
+ <div class="mini-metric" style="margin-top:8px"><span>${tr("promo")}</span><strong>${tr("promo_demo")}</strong></div>
+ <div class="mini-metric" style="margin-top:8px"><span>${tr("terms")} · ${tr("termLength")}</span><strong>${tr("terms_demo")} ${tr("term_demo")}</strong></div>`;
+ $("tariffDialog").showModal();
+}
+function setServiceFromCategory(cat){return cat==="combo"?"combo":cat||"shpd"}
+function openClientDialog(id="",tariffId=""){
+ const form=$("clientForm");form.reset();$("clientId").value=id;
+ $("clientDialogTitle").textContent=id?tr("editClient"):tr("newClient");
+ $("clientSource").value="instagram";$("clientInterest").value="shpd";$("clientStatus").value="new";
+ $("clientNext").value="";
+ if(id){const c=state.clients.find(x=>x.id===id);if(!c)return;
+  $("clientName").value=c.name;$("clientPhone").value=c.phone;$("clientSource").value=c.source;
+  $("clientInterest").value=c.service;$("clientTariff").value=c.tariff||"";$("clientStatus").value=c.status;
+  $("clientNext").value=c.contact||"";
+ }else if(tariffId){$("clientTariff").value=tariffId;$("clientInterest").value=setServiceFromCategory(tariff(tariffId)?.category)}
+ $("clientDialog").showModal();
+}
+function saveClient(e){
+ e.preventDefault();
+ const id=$("clientId").value;
+ const data={name:$("clientName").value.trim(),phone:$("clientPhone").value.trim(),source:$("clientSource").value,service:$("clientInterest").value,tariff:$("clientTariff").value,status:$("clientStatus").value,contact:$("clientNext").value};
+ if(!data.name||!data.phone){toast(tr("invalidForm"));return}
+ if(id){const i=state.clients.findIndex(c=>c.id===id);if(i>=0)state.clients[i]={...state.clients[i],...data}}
+ else state.clients.unshift({id:randomId(),number:nextClientNumber(),created:Date.now(),...data});
+ $("clientDialog").close();markChanged();renderAll();toast(tr(id?"clientUpdated":"clientAdded"));
+}
+function nextClientNumber(){const n=state.clients.reduce((m,c)=>Math.max(m,Number(String(c.number).replace(/\D/g,""))||1000),1000)+1;return `TF-${n}`}
+function removeClient(id){
+ const c=state.clients.find(x=>x.id===id);if(!c||!confirm(`${tr("confirmDeleteClient")}\n${c.name}`))return;
+ state.clients=state.clients.filter(x=>x.id!==id);
+ state.tasks=state.tasks.map(t=>t.client===id?{...t,client:""}:t);
+ markChanged();renderAll();toast(tr("clientDeleted"));
+}
+function titleOf(task){return task.title?.[state.lang]||task.title?.kk||task.title||""}
+function openTaskDialog(id=""){
+ $("taskForm").reset();$("taskId").value=id;$("taskDialogTitle").textContent=id?tr("editTask"):tr("newTask");
+ $("taskClient").innerHTML=`<option value="">${tr("none")}</option>`+state.clients.map(c=>`<option value="${c.id}">${escapeHtml(c.number)} · ${escapeHtml(c.name)}</option>`).join("");
+ $("taskPriority").value="medium";$("taskStatus").value="open";$("taskDue").value=localDateTime(2);
+ if(id){const t=state.tasks.find(x=>x.id===id);if(!t)return;$("taskName").value=titleOf(t);$("taskClient").value=t.client||"";$("taskPriority").value=t.priority;$("taskStatus").value=t.done?"done":"open";$("taskDue").value=t.due}
+ $("taskDialog").showModal();
+}
+function saveTask(e){
+ e.preventDefault();const id=$("taskId").value;
+ const item={title:$("taskName").value.trim(),client:$("taskClient").value,priority:$("taskPriority").value,due:$("taskDue").value,done:$("taskStatus").value==="done"};
+ if(!item.title||!item.due){toast(tr("invalidForm"));return}
+ if(id){const i=state.tasks.findIndex(x=>x.id===id);if(i>=0)state.tasks[i]={...state.tasks[i],...item}}
+ else state.tasks.unshift({id:randomId(),...item});
+ $("taskDialog").close();markChanged();renderAll();toast(tr(id?"taskUpdated":"taskAdded"));
+}
+function deleteTask(id){
+ const t=state.tasks.find(x=>x.id===id);if(!t||!confirm(`${tr("confirmDeleteTask")}\n${titleOf(t)}`))return;
+ state.tasks=state.tasks.filter(x=>x.id!==id);markChanged();renderAll();toast(tr("taskDeleted"));
+}
+function renderTasks(){
+ const q=$("taskSearch").value.trim().toLocaleLowerCase();
+ const filter=$("taskFilter").value;
+ const now=Date.now();
+ const list=state.tasks.filter(t=>(!q||titleOf(t).toLocaleLowerCase().includes(q))&&(!filter||(filter==="done"?t.done:!t.done))).sort((a,b)=>String(a.due).localeCompare(String(b.due)));
+ $("tasksBody").innerHTML=list.length?list.map(t=>{
+  const c=state.clients.find(x=>x.id===t.client);
+  const late=!t.done&&new Date(t.due).getTime()<now;
+  return `<tr class="${late?"overdue":""}"><td><strong>${escapeHtml(titleOf(t))}</strong>${late?`<div class="item-meta" style="color:var(--amber)">${tr("overdue")}</div>`:""}</td>
+  <td>${c?escapeHtml(c.name):"—"}</td><td>${dateText(t.due)}</td><td><span class="priority ${t.priority}">${tr("priority_"+t.priority)}</span></td>
+  <td><button class="btn small ${t.done?"":"primary"}" data-toggle-task="${t.id}">${tr(t.done?"completed":"pending")}</button></td>
+  <td><div class="actions-cell"><button class="btn small" data-edit-task="${t.id}">${tr("edit")}</button><button class="btn small danger" data-delete-task="${t.id}">${tr("delete")}</button></div></td></tr>`;
+ }).join(""):`<tr><td colspan="6"><div class="empty">${tr("noTasks")}</div></td></tr>`;
+ $("taskCount").textContent=`${tr("shown")}: ${list.length} · ${tr("total")}: ${state.tasks.length}`;
+}
+function renderPlan(){
+ const r=planRecord(),tot=totals();
+ $("planPeriod").textContent=tr("planMonth",{month:new Intl.DateTimeFormat(state.lang==="kk"?"kk-KZ":state.lang==="ru"?"ru-RU":"en-US",{month:"long",year:"numeric"}).format(new Date(state.month+"-01T12:00:00"))});
+ $("workdays").value=r.workdays;
+ $("planStats").innerHTML=[
+  [tr("totalPlan"),tot.plan],[tr("totalDone"),tot.done],[tr("totalPercent"),pct(tot.p)],[tr("totalLeft"),tot.left]
+ ].map(x=>`<article class="stat"><div class="stat-label">${x[0]}</div><div class="stat-value">${x[1]}${typeof x[1]==="number"?"":""}</div></article>`).join("");
+ $("planCards").innerHTML=["shpd","tv","fms"].map(id=>{
+  const m=metric(id,r);
+  const daily=r.workdays?Math.ceil(m.left/r.workdays):null;
+  const name=id==="shpd"?"ШПД":id==="tv"?"ТВ":"FMS";
+  return `<article class="plan-card"><div class="plan-card-head"><div><h3>${name}</h3><div class="item-meta">${serviceName(id)}</div></div><span class="badge ${m.met?"good":""}">${m.met105?tr("targetMet"):m.met?tr("planMet"):tr("remaining")}</span></div>
+  <div class="plan-inputs"><div class="field"><label for="plan-${id}">${tr("monthlyPlan")}</label><input type="number" min="0" step="1" inputmode="numeric" id="plan-${id}" data-plan="${id}" value="${m.plan}"></div>
+  <div class="field"><label for="done-${id}">${tr("performed")}</label><input type="number" min="0" step="1" inputmode="numeric" id="done-${id}" data-done="${id}" value="${m.done}"></div></div>
+  <div class="mini-metrics"><div class="mini-metric"><span>${tr("percent")}</span><strong>${pct(m.p)}</strong></div><div class="mini-metric"><span>${tr("remaining")}</span><strong>${m.left}</strong></div><div class="mini-metric"><span>${tr("target105")}</span><strong>${m.goal}</strong></div><div class="mini-metric"><span>${tr("left105")}</span><strong>${m.left105}</strong></div></div>
+  <div class="progress-label"><span>${tr("progress")}</span><span>${pct(m.p)}</span></div><div class="progress"><span class="${m.met?"good":""}" style="width:${Math.min(100,m.p)}%"></span></div>
+  <div class="pace">${daily===null?tr("enterDays"):tr("dailyNeed",{n:daily})}</div></article>`;
+ }).join("");
+}
+function updatePlanLive(){
+ const r=planRecord(),tot=totals();
+ const stats=[[tr("totalPlan"),tot.plan],[tr("totalDone"),tot.done],[tr("totalPercent"),pct(tot.p)],[tr("totalLeft"),tot.left]];
+ $("planStats").innerHTML=stats.map(x=>`<article class="stat"><div class="stat-label">${x[0]}</div><div class="stat-value">${x[1]}</div></article>`).join("");
+ $("planCards").innerHTML=["shpd","tv","fms"].map(id=>{
+  const m=metric(id,r),daily=r.workdays?Math.ceil(m.left/r.workdays):null;
+  const name=id==="shpd"?"ШПД":id==="tv"?"ТВ":"FMS";
+  return `<article class="plan-card"><div class="plan-card-head"><div><h3>${name}</h3><div class="item-meta">${serviceName(id)}</div></div><span class="badge ${m.met?"good":""}">${m.met105?tr("targetMet"):m.met?tr("planMet"):tr("remaining")}</span></div>
+  <div class="plan-inputs"><div class="field"><label>${tr("monthlyPlan")}</label><input type="number" min="0" step="1" data-plan="${id}" value="${m.plan}"></div><div class="field"><label>${tr("performed")}</label><input type="number" min="0" step="1" data-done="${id}" value="${m.done}"></div></div>
+  <div class="mini-metrics"><div class="mini-metric"><span>${tr("percent")}</span><strong>${pct(m.p)}</strong></div><div class="mini-metric"><span>${tr("remaining")}</span><strong>${m.left}</strong></div><div class="mini-metric"><span>${tr("target105")}</span><strong>${m.goal}</strong></div><div class="mini-metric"><span>${tr("left105")}</span><strong>${m.left105}</strong></div></div>
+  <div class="progress-label"><span>${tr("progress")}</span><span>${pct(m.p)}</span></div><div class="progress"><span class="${m.met?"good":""}" style="width:${Math.min(100,m.p)}%"></span></div>
+  <div class="pace">${daily===null?tr("enterDays"):tr("dailyNeed",{n:daily})}</div></article>`;
+ }).join("");
+ renderDashboard();renderReports();
+}
+function renderReports(){
+ const r=planRecord(),done=state.clients.filter(c=>c.status==="completed").length,declined=state.clients.filter(c=>c.status==="declined").length;
+ const conv=state.clients.length?done/state.clients.length*100:0;
+ $("reportMonth").textContent=state.month;
+ $("reportStats").innerHTML=[[tr("reportNew"),state.clients.length],[tr("reportSales"),done],[tr("reportDeclined"),declined],[tr("conversion"),pct(conv)]].map(x=>`<article class="stat"><div class="stat-label">${x[0]}</div><div class="stat-value">${x[1]}</div></article>`).join("");
+ const vals=["shpd","tv","fms"].map(id=>metric(id,r)),max=Math.max(1,...vals.map(x=>x.plan),...vals.map(x=>x.done));
+ $("channelChart").innerHTML=SOURCES.map(s=>{const n=state.clients.filter(c=>c.source===s).length;return `<div class="chart-row"><span class="chart-label">${sourceName(s)}</span><div class="chart-track"><div class="chart-fill" style="width:${n?Math.max(4,n/Math.max(1,state.clients.length)*100):0}%"></div></div><span class="chart-value">${n}</span></div>`}).join("");
+}
+function renderAll(){
+ applyTranslations();
+ $("employeeInput").value=state.employee;$("monthInput").value=state.month;
+ $("demoNotice").hidden=!state.demo;
+ renderDashboard();renderClients();renderTariffs();renderPlan();renderTasks();renderReports();
+}
+function exportCsv(){
+ const r=planRecord(),rows=[
+  ["Telecom Flow",state.employee,state.month],
+  [],
+  [tr("navPlan"),"Plan","Completed","Percent","Remaining","105% target"],
+  ...["shpd","tv","fms"].map(id=>{const m=metric(id,r);return [id,m.plan,m.done,pct(m.p),m.left,m.goal]}),
+  [],
+  ["ID",tr("colClient"),tr("colPhone"),tr("colSource"),tr("colInterest"),tr("colTariff"),tr("colStatus"),tr("colNext")],
+  ...state.clients.map(c=>[c.number,c.name,c.phone,sourceName(c.source),serviceName(c.service),tariffName(tariff(c.tariff)),statusName(c.status),c.contact]),
+  [],
+  [tr("taskTitle"),tr("taskClient"),tr("taskDue"),tr("priority"),tr("taskStatus")],
+  ...state.tasks.map(t=>[titleOf(t),state.clients.find(c=>c.id===t.client)?.name||"",t.due,tr("priority_"+t.priority),tr(t.done?"completed":"pending")])
+ ];
+ const content="\uFEFF"+rows.map(row=>row.map(v=>`"${String(v??"").replaceAll('"','""')}"`).join(";")).join("\r\n");
+ const blob=new Blob([content],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download=`telecom-flow-${state.month}.csv`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),800);toast(tr("csvReady"));
+}
+function resetDemo(){
+ if(!confirm(tr("confirmReset")))return;
+ const lang=state.lang;state=demoState();state.lang=lang;saveState();renderAll();toast(tr("resetDone"));
+}
+function bindEvents(){
+ document.querySelectorAll(".nav [data-page]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.page)));
+ document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
+ $("menuToggle").addEventListener("click",()=>$("sidebar").classList.toggle("open"));
+ document.querySelectorAll("[data-lang]").forEach(b=>b.addEventListener("click",()=>{state.lang=b.dataset.lang;markChanged();renderAll()}));
+ $("employeeInput").addEventListener("change",()=>{state.employee=$("employeeInput").value.trim()||"—";markChanged();renderAll()});
+ $("monthInput").addEventListener("change",()=>{if(/^\d{4}-\d{2}$/.test($("monthInput").value)){state.month=$("monthInput").value;markChanged();renderAll()}});
+ $("saveBtn").addEventListener("click",()=>saveState(true));
+ $("restoreBtn").addEventListener("click",()=>{clearTimeout(saveTimer);const saved=loadState();if(saved){state=saved;renderAll();toast(tr("restored"))}else toast(tr("noSaved"))});
+ $("resetBtn").addEventListener("click",resetDemo);
+ $("quickClient").addEventListener("click",()=>openClient());
+ $("newClientBtn").addEventListener("click",()=>openClient());
+ $("quickTask").addEventListener("click",()=>openTask());
+ $("newTaskBtn").addEventListener("click",()=>openTask());
+ $("csvBtn").addEventListener("click",exportCsv);
+ $("clientForm").addEventListener("submit",saveClient);
+ $("taskForm").addEventListener("submit",saveTask);
 
-  const grouped=SOURCES.map(source=>({source,count:state.applications.filter(x=>x.source===source).length}));
-  const maxChannel=Math.max(1,...grouped.map(x=>x.count));
-  $("channelChart").innerHTML=grouped.map(item=>`
-    <div class="channel-row"><div class="bar-name">${escapeHtml(item.source)}</div><div class="bar-track"><div class="bar-fill" style="width:${item.count/maxChannel*100}%"></div></div><div class="bar-value">${item.count}</div></div>
-  `).join("");
+ $("clientsBody").addEventListener("click",e=>{
+  const edit=e.target.closest("[data-edit-client]"),del=e.target.closest("[data-delete-client]");
+  if(edit)openClient(edit.dataset.editClient);if(del)removeClient(del.dataset.deleteClient);
+ });
+ $("clientsBody").addEventListener("change",e=>{
+  const select=e.target.closest("[data-client-status]");if(!select)return;
+  const client=state.clients.find(c=>c.id===select.dataset.clientStatus);
+  if(client){client.status=select.value;markChanged();renderAll();toast(tr("statusUpdated"))}
+ });
+ $("clientSearch").addEventListener("input",renderClients);
+ $("clientStatusFilter").addEventListener("change",renderClients);
 
-  $("reportPlanBody").innerHTML=DIRECTIONS.map(d=>{
-    const m=metrics(d);
-    return `<tr><td><strong>${d.name}</strong></td><td>${m.plan}</td><td>${m.done}</td><td>${shownPercent(m.percent)}</td><td>${m.left}</td><td>${m.target105}</td></tr>`;
-  }).join("");
+ $("tariffGrid").addEventListener("click",e=>{
+  const button=e.target.closest("[data-open-tariff]"),card=e.target.closest("[data-card-tariff]");
+  if(button)openTariff(button.dataset.openTariff);else if(card)openTariff(card.dataset.cardTariff);
+ });
+ $("popularTariffs").addEventListener("click",e=>{const b=e.target.closest("[data-open-tariff]");if(b)openTariff(b.dataset.openTariff)});
+ $("callsList").addEventListener("click",e=>{const b=e.target.closest("[data-edit-client]");if(b)openClient(b.dataset.editClient)});
+ $("tariffSearch").addEventListener("input",renderTariffs);$("tariffCategory").addEventListener("change",renderTariffs);
+ $("proposeTariff").addEventListener("click",()=>{const id=selectedTariff;$("tariffDialog").close();if(state.clients.length)openClient("",id);else{openClient("",id);toast(tr("tariffSent"))}});
+ $("planCards").addEventListener("input",e=>{
+  const el=e.target,record=planRecord();let key,kind;
+  if(el.dataset.plan){key=el.dataset.plan;kind="plan"}else if(el.dataset.done){key=el.dataset.done;kind="done"}
+  if(key){if(el.value!==""&&Number(el.value)<0)el.value=0;if(el.value!==""&&!Number.isInteger(Number(el.value)))el.value=Math.floor(Number(el.value));record[kind][key]=count(el.value);state.demo=false;$("demoNotice").hidden=true;updatePlanLive();queueSave()}
+ });
+ $("workdays").addEventListener("input",e=>{const el=e.target;if(el.value!==""&&Number(el.value)<0)el.value=0;if(el.value!==""&&!Number.isInteger(Number(el.value)))el.value=Math.floor(Number(el.value));planRecord().workdays=count(el.value);state.demo=false;$("demoNotice").hidden=true;updatePlanLive();queueSave()});
+ $("taskSearch").addEventListener("input",renderTasks);$("taskFilter").addEventListener("change",renderTasks);
+ $("tasksBody").addEventListener("click",e=>{
+  const edit=e.target.closest("[data-edit-task]"),del=e.target.closest("[data-delete-task]"),toggle=e.target.closest("[data-toggle-task]");
+  if(edit)openTask(edit.dataset.editTask);
+  if(del)deleteTask(del.dataset.deleteTask);
+  if(toggle){const t=state.tasks.find(x=>x.id===toggle.dataset.toggleTask);if(t){t.done=!t.done;markChanged();renderAll()}}
+ });
+ document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>$(b.dataset.close).close()));
 }
-function renderAll() {
-  $("employeeName").value=state.employee;
-  $("monthPicker").value=state.month;
-  resetDemoNotice();
-  renderDashboard();
-  renderPlanPage();
-  renderApplications();
-  renderTasks();
-  renderTariffs();
-  renderReports();
+function openClient(id="",tariffId=""){
+ $("clientForm").reset();$("clientId").value=id;$("clientDialogTitle").textContent=id?tr("editClient"):tr("newClient");
+ $("clientSource").value="instagram";$("clientInterest").value="shpd";$("clientStatus").value="new";$("clientTariff").value=tariffId||"";$("clientNext").value="";
+ if(id){const c=state.clients.find(x=>x.id===id);if(!c)return;$("clientName").value=c.name;$("clientPhone").value=c.phone;$("clientSource").value=c.source;$("clientInterest").value=c.service;$("clientTariff").value=c.tariff||"";$("clientStatus").value=c.status;$("clientNext").value=c.contact||""}
+ else if(tariffId){const item=tariff(tariffId);$("clientInterest").value=item?.category==="combo"?"combo":item?.category||"shpd"}
+ $("clientDialog").showModal();
 }
-function makeId() {
-  return window.crypto&&crypto.randomUUID?crypto.randomUUID():`id-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+function saveClient(e){
+ e.preventDefault();const id=$("clientId").value;
+ const data={name:$("clientName").value.trim(),phone:$("clientPhone").value.trim(),source:$("clientSource").value,service:$("clientInterest").value,tariff:$("clientTariff").value,status:$("clientStatus").value,contact:$("clientNext").value};
+ if(!data.name||!data.phone){toast(tr("invalidForm"));return}
+ if(id){const i=state.clients.findIndex(c=>c.id===id);if(i>=0)state.clients[i]={...state.clients[i],...data}}
+ else state.clients.unshift({id:randomId(),number:nextNumber(),created:Date.now(),...data});
+ $("clientDialog").close();markChanged();renderAll();toast(tr(id?"clientUpdated":"clientAdded"));
 }
-function csvEscape(value) {
-  return `"${String(value??"").replaceAll('"','""')}"`;
+function nextNumber(){return "TF-"+(state.clients.reduce((m,c)=>Math.max(m,Number(String(c.number).replace(/\D/g,""))||1000),1000)+1)}
+function removeClient(id){
+ const c=state.clients.find(x=>x.id===id);if(!c||!confirm(`${tr("confirmDeleteClient")}\n${c.name}`))return;
+ state.clients=state.clients.filter(x=>x.id!==id);state.tasks=state.tasks.map(t=>t.client===id?{...t,client:""}:t);markChanged();renderAll();toast(tr("clientDeleted"));
 }
-function downloadCsv() {
-  const record=activePlan();
-  const rows=[
-    ["Telecom Flow есебі"],
-    ["Қызметкер",state.employee],
-    ["Есеп айы",state.month],
-    [],
-    ["Бағыт","Жоспар","Орындалғаны","Орындалу пайызы","Жоспарға дейін","105% мақсат","105% мақсатқа дейін"]
-  ];
-  DIRECTIONS.forEach(d=>{
-    const m=metrics(d,record);
-    rows.push([d.name,m.plan,m.done,shownPercent(m.percent),m.left,m.target105,m.left105]);
-  });
-  rows.push([]);
-  rows.push(["Өтінім №","Клиент","Телефон","Арна","Қызмет","Тариф","Статус","Келесі әрекет күні"]);
-  state.applications.forEach(item=>rows.push([item.number,item.client,item.phone,item.source,item.service,item.tariff,item.status,item.nextDate]));
-  const content="\uFEFF"+rows.map(row=>row.map(csvEscape).join(";")).join("\r\n");
-  const blob=new Blob([content],{type:"text/csv;charset=utf-8"});
-  const url=URL.createObjectURL(blob);
-  const link=document.createElement("a");
-  link.href=url;link.download=`telecom-flow-${state.month}.csv`;
-  document.body.appendChild(link);link.click();link.remove();
-  setTimeout(()=>URL.revokeObjectURL(url),1000);
-  showToast("CSV файлы жүктелді");
+function openTask(id=""){
+ $("taskForm").reset();$("taskId").value=id;$("taskDialogTitle").textContent=id?tr("editTask"):tr("newTask");
+ $("taskClient").innerHTML=`<option value="">${tr("none")}</option>`+state.clients.map(c=>`<option value="${c.id}">${escapeHtml(c.number)} · ${escapeHtml(c.name)}</option>`).join("");
+ $("taskPriority").value="medium";$("taskStatus").value="open";$("taskDue").value=localDateTime(2);
+ if(id){const t=state.tasks.find(x=>x.id===id);if(!t)return;$("taskName").value=titleOf(t);$("taskClient").value=t.client||"";$("taskPriority").value=t.priority;$("taskStatus").value=t.done?"done":"open";$("taskDue").value=t.due}
+ $("taskDialog").showModal();
 }
-function navigate(page) {
-  document.querySelectorAll(".nav button").forEach(button=>button.classList.toggle("active",button.dataset.page===page));
-  document.querySelectorAll(".page").forEach(section=>section.classList.toggle("active",section.id===`page-${page}`));
-  $("sidebar").classList.remove("open");
+function saveTask(e){
+ e.preventDefault();const id=$("taskId").value;
+ const data={title:$("taskName").value.trim(),client:$("taskClient").value,priority:$("taskPriority").value,due:$("taskDue").value,done:$("taskStatus").value==="done"};
+ if(!data.title||!data.due){toast(tr("invalidForm"));return}
+ if(id){const i=state.tasks.findIndex(x=>x.id===id);if(i>=0)state.tasks[i]={...state.tasks[i],...data}}
+ else state.tasks.unshift({id:randomId(),...data});
+ $("taskDialog").close();markChanged();renderAll();toast(tr(id?"taskUpdated":"taskAdded"));
 }
-function onPlanInput(event) {
-  const input=event.target;
-  const record=activePlan();
-  if(input.dataset.plan){
-    const value=Number(input.value);
-    if(input.value!==""&&(!Number.isFinite(value)||value<0))input.value="0";
-    else if(input.value!==""&&!Number.isInteger(value))input.value=String(Math.floor(value));
-    record.plans[input.dataset.plan]=safeCount(input.value);
-  }else if(input.dataset.done){
-    const value=Number(input.value);
-    if(input.value!==""&&(!Number.isFinite(value)||value<0))input.value="0";
-    else if(input.value!==""&&!Number.isInteger(value))input.value=String(Math.floor(value));
-    record.done[input.dataset.done]=safeCount(input.value);
-  }else if(input.id==="workdaysInput"){
-    const value=Number(input.value);
-    if(input.value!==""&&(!Number.isFinite(value)||value<0))input.value="0";
-    else if(input.value!==""&&!Number.isInteger(value))input.value=String(Math.floor(value));
-    record.workdays=safeCount(input.value);
-  }else return;
-  state.demoMode=false;
-  $("demoNotice").classList.add("hidden");
-  updatePlanMetrics();
-  scheduleSave();
+function deleteTask(id){const task=state.tasks.find(t=>t.id===id);if(!task||!confirm(`${tr("confirmDeleteTask")}\n${titleOf(task)}`))return;state.tasks=state.tasks.filter(t=>t.id!==id);markChanged();renderAll();toast(tr("taskDeleted"))}
+function renderTasks(){
+ const q=$("taskSearch").value.trim().toLocaleLowerCase(),filter=$("taskFilter").value;
+ const list=state.tasks.filter(t=>(!q||titleOf(t).toLocaleLowerCase().includes(q))&&(!filter||(filter==="done"?t.done:!t.done))).sort((a,b)=>String(a.due).localeCompare(String(b.due)));
+ $("tasksBody").innerHTML=list.length?list.map(t=>{
+  const c=state.clients.find(x=>x.id===t.client),late=!t.done&&new Date(t.due).getTime()<Date.now();
+  return `<tr class="${late?"overdue":""}"><td><strong>${escapeHtml(titleOf(t))}</strong>${late?`<div class="item-meta" style="color:var(--amber)">${tr("overdue")}</div>`:""}</td><td>${c?escapeHtml(c.name):"—"}</td><td>${dateText(t.due)}</td><td><span class="priority ${t.priority}">${tr("priority_"+t.priority)}</span></td><td><button class="btn small ${t.done?"":"primary"}" data-toggle-task="${t.id}">${tr(t.done?"completed":"pending")}</button></td><td><div class="actions-cell"><button class="btn small" data-edit-task="${t.id}">${tr("edit")}</button><button class="btn small danger" data-delete-task="${t.id}">${tr("delete")}</button></div></td></tr>`;
+ }).join(""):`<tr><td colspan="6"><div class="empty">${tr("noTasks")}</div></td></tr>`;
+ $("taskCount").textContent=`${tr("shown")}: ${list.length} · ${tr("total")}: ${state.tasks.length}`;
 }
-function clearAllData() {
-  if(!confirm("Өтінімдер, жоспарлар мен тапсырмалардың барлығын осы браузерден өшіресіз бе? Бұл әрекетті қайтару мүмкін емес."))return;
-  const employee=state.employee||"Қызметкер";
-  const month=state.month||currentMonth();
-  state={employee,month,demoMode:false,monthData:{},applications:[],tasks:[]};
-  activePlan();
-  saveState(false);
-  renderAll();
-  showToast("Барлық жергілікті дерек өшірілді");
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function init(){
+ state=loadState()||demoState();
+ applyTranslations();bindEvents();renderAll();
+ if(!localStorage.getItem("telecomFlow:v2"))saveState(false);
 }
-function restoreData() {
-  clearTimeout(saveTimer);
-  const saved=loadStored();
-  if(!saved){showToast("Қалпына келтіретін сақталған дерек табылмады");return}
-  state=saved;
-  renderAll();
-  showToast("Сақталған деректер қалпына келтірілді");
-}
-
-function bindEvents() {
-  document.querySelectorAll(".nav button").forEach(button=>button.addEventListener("click",()=>navigate(button.dataset.page)));
-  document.querySelectorAll("[data-go]").forEach(button=>button.addEventListener("click",()=>navigate(button.dataset.go)));
-  $("menuToggle").addEventListener("click",()=>$("sidebar").classList.toggle("open"));
-
-  $("employeeName").addEventListener("change",()=>{
-    state.employee=$("employeeName").value.trim()||"Қызметкер";
-    state.demoMode=false;
-    activePlan();
-    $("demoNotice").classList.add("hidden");
-    renderAll();
-    saveState(false);
-  });
-  $("monthPicker").addEventListener("change",()=>{
-    if(!/^\d{4}-\d{2}$/.test($("monthPicker").value))return;
-    state.month=$("monthPicker").value;
-    state.demoMode=false;
-    activePlan();
-    $("demoNotice").classList.add("hidden");
-    renderAll();
-    saveState(false);
-  });
-
-  $("saveButton").addEventListener("click",()=>saveState(true));
-  $("restoreButton").addEventListener("click",restoreData);
-  $("clearAllButton").addEventListener("click",clearAllData);
-  $("exportButton").addEventListener("click",downloadCsv);
-  $("reportExportButton").addEventListener("click",downloadCsv);
-
-  $("addApplicationButton").addEventListener("click",()=>openApplicationDialog());
-  $("applicationForm").addEventListener("submit",saveApplication);
-  $("addTaskButton").addEventListener("click",()=>openTaskDialog());
-  $("taskForm").addEventListener("submit",saveTask);
-
-  document.querySelectorAll("[data-close]").forEach(button=>button.addEventListener("click",()=>$(button.dataset.close).close()));
-
-  $("applicationsBody").addEventListener("click",event=>{
-    const button=event.target.closest("[data-action]");
-    if(!button)return;
-    if(button.dataset.action==="edit-app")openApplicationDialog(button.dataset.id);
-    if(button.dataset.action==="delete-app")deleteApplication(button.dataset.id);
-  });
-  $("applicationsBody").addEventListener("change",event=>{
-    const select=event.target.closest("[data-app-status]");
-    if(!select)return;
-    const item=state.applications.find(x=>x.id===select.dataset.appStatus);
-    if(item){item.status=select.value;touchData();renderAll();showToast("Өтінім статусы жаңартылды")}
-  });
-
-  $("tasksBody").addEventListener("click",event=>{
-    const button=event.target.closest("[data-action]");
-    if(!button)return;
-    const id=button.dataset.id;
-    if(button.dataset.action==="edit-task")openTaskDialog(id);
-    if(button.dataset.action==="delete-task")deleteTask(id);
-    if(button.dataset.action==="toggle-task"){
-      const task=state.tasks.find(x=>x.id===id);
-      if(task){task.status=task.status==="Аяқталды"?"Орындалуда":"Аяқталды";touchData();renderAll();showToast("Тапсырма статусы жаңартылды")}
-    }
-  });
-
-  $("planCards").addEventListener("input",onPlanInput);
-  $("workdaysInput").addEventListener("input",onPlanInput);
-  $("appSearch").addEventListener("input",renderApplications);
-  $("appSourceFilter").addEventListener("change",renderApplications);
-  $("appStatusFilter").addEventListener("change",renderApplications);
-  $("taskSearch").addEventListener("input",renderTasks);
-  $("taskStatusFilter").addEventListener("change",renderTasks);
-  $("tariffSearch").addEventListener("input",renderTariffs);
-  $("tariffCategory").addEventListener("change",renderTariffs);
-}
-function initialize() {
-  state=loadStored();
-  if(!state){
-    state=initialDemo();
-    saveState(false);
-  }
-  if(!/^\d{4}-\d{2}$/.test(state.month||""))state.month=currentMonth();
-  activePlan();
-  fillStaticOptions();
-  bindEvents();
-  renderAll();
-}
-document.addEventListener("DOMContentLoaded",initialize);
+document.addEventListener("DOMContentLoaded",init);
 </script>
 </body>
 </html>
